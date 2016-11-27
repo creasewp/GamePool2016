@@ -10,3 +10,5 @@ C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.dl
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.pdb
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.Initial.resources
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.csproj.GenerateResource.Cache
+C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.PoolGameIsSelected.resources
+C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.playerPool_Pool.resources

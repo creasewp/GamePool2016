@@ -22,15 +22,12 @@ namespace GamePool2016.Data.Migrations
                         IsGameFinished = c.Boolean(nullable: false),
                         HomeSelectedCount = c.Int(nullable: false),
                         AwaySelectedCount = c.Int(nullable: false),
-                        Pool_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Teams", t => t.AwayTeamId)
                 .ForeignKey("dbo.Teams", t => t.HomeTeamId)
-                .ForeignKey("dbo.Pools", t => t.Pool_Id)
                 .Index(t => t.HomeTeamId)
-                .Index(t => t.AwayTeamId)
-                .Index(t => t.Pool_Id);
+                .Index(t => t.AwayTeamId);
             
             CreateTable(
                 "dbo.Teams",
@@ -93,10 +90,13 @@ namespace GamePool2016.Data.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         PoolId = c.String(maxLength: 128),
+                        GameId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Games", t => t.GameId)
                 .ForeignKey("dbo.Pools", t => t.PoolId)
-                .Index(t => t.PoolId);
+                .Index(t => t.PoolId)
+                .Index(t => t.GameId);
             
             CreateTable(
                 "dbo.Pools",
@@ -114,16 +114,16 @@ namespace GamePool2016.Data.Migrations
         {
             DropForeignKey("dbo.PlayerPoolGames", "PoolGameId", "dbo.PoolGames");
             DropForeignKey("dbo.PoolGames", "PoolId", "dbo.Pools");
-            DropForeignKey("dbo.Games", "Pool_Id", "dbo.Pools");
+            DropForeignKey("dbo.PoolGames", "GameId", "dbo.Games");
             DropForeignKey("dbo.PlayerPools", "PlayerId", "dbo.Players");
             DropForeignKey("dbo.PlayerPoolGames", "PlayerPoolId", "dbo.PlayerPools");
             DropForeignKey("dbo.Games", "HomeTeamId", "dbo.Teams");
             DropForeignKey("dbo.Games", "AwayTeamId", "dbo.Teams");
+            DropIndex("dbo.PoolGames", new[] { "GameId" });
             DropIndex("dbo.PoolGames", new[] { "PoolId" });
             DropIndex("dbo.PlayerPools", new[] { "PlayerId" });
             DropIndex("dbo.PlayerPoolGames", new[] { "PoolGameId" });
             DropIndex("dbo.PlayerPoolGames", new[] { "PlayerPoolId" });
-            DropIndex("dbo.Games", new[] { "Pool_Id" });
             DropIndex("dbo.Games", new[] { "AwayTeamId" });
             DropIndex("dbo.Games", new[] { "HomeTeamId" });
             DropTable("dbo.Pools");

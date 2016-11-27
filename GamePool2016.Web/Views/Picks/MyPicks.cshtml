@@ -1,7 +1,56 @@
-﻿@{
+﻿@model GamePool2016.Models.MyPicksViewModel
+@{
     ViewBag.Title = "My Picks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var games = Model.Player.Pools.Single(item => item.Id == Model.SelectedPoolId).Games;
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+@using (Html.BeginForm())
+{
+    @Html.DropDownListFor(model => model.SelectedPoolId, Model.Pools, new { onchange = "this.form.submit();" })
+}
+
+@for (int i = 0; i < games.Count; i++)
+{
+    if (games[i].PoolGame.IsSelected)
+    {
+        <div >
+            @Html.HiddenFor(model => games[i].Id)
+            <table class="table">
+                <tr>
+                    <td><b>@Html.ValueFor(model => games[i].PoolGame.Game.Description)</b>(@Html.ValueFor(model => games[i].PoolGame.Game.GameDateTime))</td>
+                    <td>@Html.ValueFor(model => games[i].PoolGame.Game.Network)</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.ValueFor(model => games[i].PoolGame.Game.HomeTeam.Description)
+                        @if (games[i].WinnerTeamId == games[i].PoolGame.Game.HomeTeamId)
+                        {
+                            <image src="Images\ic_thumb_up.png"></image>
+                        }
+                    </td>
+                    @if (Model.IsLocked)
+                    {
+                        <td>@Html.ValueFor(model => games[i].Confidence)</td>
+                    }
+                    else
+                    {
+                        <td>@Html.EditorFor(model => games[i].Confidence)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        @Html.ValueFor(model => games[i].PoolGame.Game.AwayTeam.Description)
+                        @if (games[i].WinnerTeamId == games[i].PoolGame.Game.AwayTeamId)
+                        {
+                            <image src="Images\ic_thumb_up.png"></image>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+}
+

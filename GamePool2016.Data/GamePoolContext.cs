@@ -15,6 +15,8 @@ namespace GamePool2016.Data
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<GamePoolContext, MyNamespace.Migrations.Configuration>());
         }
 
+        public DbSet<Pool> Pools { get; set; }
+        public DbSet<PoolGame> PoolGames { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }

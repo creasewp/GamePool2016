@@ -69,3 +69,9 @@ C:\src\PersonalGit\GamePool2016\GamePool2016.Web\obj\Debug\GamePool2016.dll
 C:\src\PersonalGit\GamePool2016\GamePool2016.Web\obj\Debug\GamePool2016.pdb
 C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\GamePool2016.Data.dll
 C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\GamePool2016.Data.pdb
+C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\System.Net.Http.Formatting.dll
+C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\System.Web.Http.dll
+C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\System.Web.Http.WebHost.dll
+C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\System.Net.Http.Formatting.xml
+C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\System.Web.Http.xml
+C:\src\PersonalGit\GamePool2016\GamePool2016.Web\bin\System.Web.Http.WebHost.xml

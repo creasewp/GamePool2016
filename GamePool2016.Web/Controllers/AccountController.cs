@@ -425,7 +425,14 @@ namespace GamePool2016.Controllers
         public ActionResult LogOff()
         {
             //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            Response.Cookies.Clear();
+            FormsAuthentication.SignOut();
+            //Response.Cookies.Clear();
+            if (Request.Cookies[".ASPXAUTH"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie(".ASPXAUTH");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
+            }
             return RedirectToAction("Index", "Home");
         }
 

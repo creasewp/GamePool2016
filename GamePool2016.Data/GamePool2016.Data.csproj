@@ -51,9 +51,17 @@
   <ItemGroup>
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Migrations\201610090017460_Initial.cs" />
-    <Compile Include="Migrations\201610090017460_Initial.Designer.cs">
-      <DependentUpon>201610090017460_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201611252155377_Initial.cs" />
+    <Compile Include="Migrations\201611252155377_Initial.Designer.cs">
+      <DependentUpon>201611252155377_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611252213123_PoolGameIsSelected.cs" />
+    <Compile Include="Migrations\201611252213123_PoolGameIsSelected.Designer.cs">
+      <DependentUpon>201611252213123_PoolGameIsSelected.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611252242257_playerPool_Pool.cs" />
+    <Compile Include="Migrations\201611252242257_playerPool_Pool.Designer.cs">
+      <DependentUpon>201611252242257_playerPool_Pool.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
@@ -70,8 +78,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610090017460_Initial.resx">
-      <DependentUpon>201610090017460_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611252155377_Initial.resx">
+      <DependentUpon>201611252155377_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611252213123_PoolGameIsSelected.resx">
+      <DependentUpon>201611252213123_PoolGameIsSelected.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611252242257_playerPool_Pool.resx">
+      <DependentUpon>201611252242257_playerPool_Pool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

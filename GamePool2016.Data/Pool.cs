@@ -10,6 +10,6 @@ namespace GamePool2016.Data
     {
         public string Description { get; set; }
         public bool IsPublic { get; set; }
-        public virtual ICollection<Game> Games { get; set; }
+        public virtual List<PoolGame> Games { get; set; }
     }
 }

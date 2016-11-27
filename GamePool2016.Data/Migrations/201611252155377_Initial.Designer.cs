@@ -13,7 +13,7 @@ namespace GamePool2016.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201610090017460_Initial"; }
+            get { return "201611252155377_Initial"; }
         }
         
         string IMigrationMetadata.Source

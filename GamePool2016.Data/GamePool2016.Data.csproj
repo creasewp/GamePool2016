@@ -63,6 +63,14 @@
     <Compile Include="Migrations\201611252242257_playerPool_Pool.Designer.cs">
       <DependentUpon>201611252242257_playerPool_Pool.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611280028084_PlayerPoolGame_PointsEarned.cs" />
+    <Compile Include="Migrations\201611280028084_PlayerPoolGame_PointsEarned.Designer.cs">
+      <DependentUpon>201611280028084_PlayerPoolGame_PointsEarned.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611280031024_MoveCounts.cs" />
+    <Compile Include="Migrations\201611280031024_MoveCounts.Designer.cs">
+      <DependentUpon>201611280031024_MoveCounts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerPool.cs" />
@@ -86,6 +94,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611252242257_playerPool_Pool.resx">
       <DependentUpon>201611252242257_playerPool_Pool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611280028084_PlayerPoolGame_PointsEarned.resx">
+      <DependentUpon>201611280028084_PlayerPoolGame_PointsEarned.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611280031024_MoveCounts.resx">
+      <DependentUpon>201611280031024_MoveCounts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

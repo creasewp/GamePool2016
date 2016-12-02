@@ -13,5 +13,8 @@ namespace GamePool2016.Data
         public virtual Pool Pool { get; set; }
         public string GameId { get; set; }
         public virtual Game Game { get; set; }
+        public int HomeSelectedCount { get; set; }
+        public int AwaySelectedCount { get; set; }
+
     }
 }

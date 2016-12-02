@@ -14,6 +14,7 @@ namespace GamePool2016.Data
         public string PoolGameId { get; set; }
         public virtual PoolGame PoolGame { get; set; }
         public int Confidence { get; set; }
+        public int PointsEarned { get; set; }
 
         public string WinnerTeamId { get; set; }
         

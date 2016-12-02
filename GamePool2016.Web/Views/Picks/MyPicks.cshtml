@@ -1,56 +1,162 @@
 ﻿@model GamePool2016.Models.MyPicksViewModel
 @{
-    ViewBag.Title = "My Picks";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var games = Model.Player.Pools.Single(item => item.Id == Model.SelectedPoolId).Games;
+        ViewBag.Title = "My Picks";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        var games = Model.Player.Pools.Single(item => item.Id == Model.SelectedPoolId).Games;
+
 }
+@functions {
+    public string GetGamePercent(int usersPicked)
+    {
+        return ((int)(((double)usersPicked / (double)Model.PlayersInPool) * 100)).ToString() + "%";
+    }
+}
+
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 @using (Html.BeginForm())
 {
     @Html.DropDownListFor(model => model.SelectedPoolId, Model.Pools, new { onchange = "this.form.submit();" })
-}
-
-@for (int i = 0; i < games.Count; i++)
-{
-    if (games[i].PoolGame.IsSelected)
+    if (!Model.IsLocked)
     {
+        <button value="Save" onclick="this.form.submit()">Save Changes</button>
+    }
+    @Html.HiddenFor(model => model.Player.Id);
+
+    for (int i = 0; i < Model.Games.Count; i++)
+    {
+        if (!Model.IsLocked)
+        {
+            string homeImageId = "Games_" + i + "__HomeImage";
+            string awayImageId = "Games_" + i + "__AwayImage";
         <div >
-            @Html.HiddenFor(model => games[i].Id)
+            @Html.HiddenFor(model => Model.Games[i].Id)
+            @Html.HiddenFor(model => Model.Games[i].WinnerTeamId)
             <table class="table">
                 <tr>
-                    <td><b>@Html.ValueFor(model => games[i].PoolGame.Game.Description)</b>(@Html.ValueFor(model => games[i].PoolGame.Game.GameDateTime))</td>
-                    <td>@Html.ValueFor(model => games[i].PoolGame.Game.Network)</td>
+                    <td><b>@Html.ValueFor(model => Model.Games[i].PoolGame.Game.Description)</b>(@Html.ValueFor(model => Model.Games[i].PoolGame.Game.GameDateTime))</td>
+                    <td>@Html.ValueFor(model => Model.Games[i].PoolGame.Game.Network)</td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.ValueFor(model => games[i].PoolGame.Game.HomeTeam.Description)
-                        @if (games[i].WinnerTeamId == games[i].PoolGame.Game.HomeTeamId)
+                        <a onclick="var winnerTeamId = 'Games_' + @i + '__WinnerTeamId';
+                           var homeimgId = '@homeImageId';
+                           var awayimgId = '@awayImageId';
+                           document.getElementById(homeimgId).src = '/Images/ic_thumb_up.png';
+                           document.getElementById(awayimgId).src = '';
+                           document.getElementById(winnerTeamId).value = '@Model.Games[i].PoolGame.Game.HomeTeamId'" style="cursor: pointer;">
+                            @Model.Games[i].PoolGame.Game.HomeTeam.Description
+                        </a>
+                        
+                        @if (Model.Games[i].WinnerTeamId == Model.Games[i].PoolGame.Game.HomeTeamId)
                         {
-                            <image src="Images\ic_thumb_up.png"></image>
+
+                            <image id='@homeImageId' src="/Images/ic_thumb_up.png"></image>
                         }
+                        else
+                        {
+                            <image id='@homeImageId'></image>
+                        }
+
                     </td>
-                    @if (Model.IsLocked)
-                    {
-                        <td>@Html.ValueFor(model => games[i].Confidence)</td>
-                    }
-                    else
-                    {
-                        <td>@Html.EditorFor(model => games[i].Confidence)</td>
-                    }
+                    <td>@Html.TextBoxFor(model => Model.Games[i].Confidence, new { style = "width:45px" })</td>
                 </tr>
                 <tr>
                     <td>
-                        @Html.ValueFor(model => games[i].PoolGame.Game.AwayTeam.Description)
-                        @if (games[i].WinnerTeamId == games[i].PoolGame.Game.AwayTeamId)
+                        <a onclick="var winnerTeamId = 'Games_' + @i + '__WinnerTeamId';
+                           var homeimgId = '@homeImageId';
+                           var awayimgId = '@awayImageId';
+                           document.getElementById(awayimgId).src = '/Images/ic_thumb_up.png';
+                           document.getElementById(homeimgId).src = '';
+                           document.getElementById(winnerTeamId).value = '@Model.Games[i].PoolGame.Game.AwayTeamId'" style="cursor: pointer;">
+                            @Model.Games[i].PoolGame.Game.AwayTeam.Description
+                        </a>
+                        @if (Model.Games[i].WinnerTeamId == Model.Games[i].PoolGame.Game.AwayTeamId)
                         {
-                            <image src="Images\ic_thumb_up.png"></image>
+                            <image id='@awayImageId' src="/Images/ic_thumb_up.png"></image>
+                        }
+                        else
+                        {
+                            <image id='@awayImageId'></image>
                         }
                     </td>
                 </tr>
             </table>
         </div>
+        }
+        else
+        {
+            <div>
+                @Html.HiddenFor(model => Model.Games[i].Id)
+                @Html.HiddenFor(model => Model.Games[i].WinnerTeamId)
+                <table class="table">
+                    <tr>
+                        <td><b>@Html.ValueFor(model => Model.Games[i].PoolGame.Game.Description)</b>(@Html.ValueFor(model => Model.Games[i].PoolGame.Game.GameDateTime))</td>
+                        <td>@Html.ValueFor(model => Model.Games[i].PoolGame.Game.Network)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.ValueFor(model => Model.Games[i].PoolGame.Game.HomeTeam.Description)
+                            @if (Model.Games[i].PoolGame.Game.IsGameFinished)
+                            {
+                                if (Model.Games[i].PoolGame.Game.HomeScore > Model.Games[i].PoolGame.Game.AwayScore)
+                                {
+                                    <a style="color:green">@Model.Games[i].PoolGame.Game.HomeScore</a>
+                                }
+                                else
+                                {
+                                    <a style="color:red">@Model.Games[i].PoolGame.Game.HomeScore</a>
+                                }
+                            }
+                            @if (Model.Games[i].WinnerTeamId == Model.Games[i].PoolGame.Game.HomeTeamId)
+                            {
+                                <image src="/Images/ic_thumb_up.png"></image>
+                            }
+
+                        </td>
+                        <td>
+                            My Rank: @Html.ValueFor(model => Model.Games[i].Confidence)<br />
+                            My Points: 
+                            @if (Model.Games[i].PointsEarned > 0)
+                            {
+                                <a style="color:green">@Model.Games[i].PointsEarned</a>
+                            }
+                            else
+                            {
+                                <a style="color:red">@Model.Games[i].PointsEarned</a>
+                            }
+                        </td>
+                        <td>
+                            @GetGamePercent(Model.Games[i].PoolGame.HomeSelectedCount)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.ValueFor(model => Model.Games[i].PoolGame.Game.AwayTeam.Description)
+                            @if (Model.Games[i].PoolGame.Game.IsGameFinished)
+                            {
+                                if (Model.Games[i].PoolGame.Game.HomeScore < Model.Games[i].PoolGame.Game.AwayScore)
+                                {
+                                    <a style="color:green">@Model.Games[i].PoolGame.Game.AwayScore</a>
+                                }
+                                else
+                                {
+                                    <a style="color:red">@Model.Games[i].PoolGame.Game.AwayScore</a>
+                                }
+                            }
+                            @if (Model.Games[i].WinnerTeamId == Model.Games[i].PoolGame.Game.AwayTeamId)
+                            {
+                                <image src="/Images/ic_thumb_up.png"></image>
+                            }
+                        </td>
+                        <td>
+                            @GetGamePercent(Model.Games[i].PoolGame.HomeSelectedCount)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
     }
 }
 

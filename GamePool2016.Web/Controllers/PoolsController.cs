@@ -19,7 +19,48 @@ namespace GamePool2016.Controllers
         // GET: Pools
         public ActionResult Index()
         {
-            return View(db.Pools.ToList());
+            //only return pools for the current user
+            List<string> playerpools = db.Players.Include("Pools").Single(item => item.UserName == User.Identity.Name).Pools.Select(item => item.PoolId).ToList();
+            
+            return View(db.Pools.Where(item => playerpools.Contains(item.Id)));
+        }
+
+        public ActionResult JoinPrivate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult JoinPrivate([Bind(Include = "JoinCode")] Pool pool)
+        {
+            //look for a match
+            Pool match = db.Pools.SingleOrDefault(item => item.JoinCode == pool.JoinCode);
+            if (match == null)
+                ModelState.AddModelError(string.Empty, "No pool with that code exists.");
+            else
+            {
+                //add a player pool
+                AddPlayerPool(match, false);
+                return RedirectToAction("Index");
+
+            }
+            return View();
+        }
+
+        private void AddPlayerPool(Pool pool, bool create)
+        {
+            Player player = db.Players.Single(item => item.UserName == User.Identity.Name);
+            var playerPool = new PlayerPool() { Id = Guid.NewGuid().ToString(), PoolId = pool.Id, PlayerId = player.Id };
+            player.Pools.Add(playerPool);
+            playerPool.Games = new List<PlayerPoolGame>();
+            foreach (PoolGame pgame in pool.Games)
+            {
+                if (create)
+                    db.PoolGames.Add(pgame);
+                playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = 0, WinnerTeamId = string.Empty });
+            }
+            //add this pool to the current player
+            db.SaveChanges();
         }
 
         // GET: Pools/Details/5
@@ -47,7 +88,7 @@ namespace GamePool2016.Controllers
             {
                 foreach (Game game in context.Games)
                 {
-                    model.Games.Add(new PoolGame() { Id = Guid.NewGuid().ToString(), GameId = game.Id, Game = game, PoolId = model.Id, Pool = model});
+                    model.Games.Add(new PoolGame() { Id = Guid.NewGuid().ToString(), GameId = game.Id, Game = game, PoolId = model.Id, Pool = model, IsSelected = true});
                 }
             }
 
@@ -64,22 +105,27 @@ namespace GamePool2016.Controllers
             if (ModelState.IsValid)
             {
                 pool.Id = Guid.NewGuid().ToString();
+                //create a join code
+                pool.JoinCode = GenerateJoinCode();
                 db.Pools.Add(pool);
-                Player player = db.Players.Single(item => item.UserName == User.Identity.Name);
-                var playerPool = new PlayerPool() { Id = Guid.NewGuid().ToString(), PoolId = pool.Id, PlayerId = player.Id };
-                player.Pools.Add(playerPool);
-                playerPool.Games = new List<PlayerPoolGame>();
-                foreach (PoolGame pgame in pool.Games)
-                {
-                    db.PoolGames.Add(pgame);
-                    playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = 0, WinnerTeamId = string.Empty });
-                }
-                //add this pool to the current player
-                db.SaveChanges();
+                AddPlayerPool(pool, true);
                 return RedirectToAction("Index");
             }
 
             return View(pool);
+        }
+
+        private char[] chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789".ToCharArray();
+        private string GenerateJoinCode()
+        {
+            string result = string.Empty;
+            //random 6 chars from available list
+            Random random = new Random();
+            for (int i=0; i< 6; i++)
+            {
+                result += chars[random.Next(chars.Length - 1)];
+            }
+            return result;
         }
 
         // GET: Pools/Edit/5

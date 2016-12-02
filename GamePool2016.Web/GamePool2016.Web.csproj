@@ -191,6 +191,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LeaderboardViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyPicksViewModel.cs" />
     <Compile Include="Models\PoolsViewModels.cs" />
@@ -272,6 +273,7 @@
     <Content Include="Views\Pools\Details.cshtml" />
     <Content Include="Views\Pools\Edit.cshtml" />
     <Content Include="Views\Pools\Index.cshtml" />
+    <Content Include="Views\Pools\JoinPrivate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

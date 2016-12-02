@@ -11,5 +11,6 @@ namespace GamePool2016.Data
         public string Description { get; set; }
         public bool IsPublic { get; set; }
         public virtual List<PoolGame> Games { get; set; }
+        public string JoinCode { get; set; }
     }
 }

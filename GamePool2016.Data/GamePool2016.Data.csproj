@@ -71,6 +71,14 @@
     <Compile Include="Migrations\201611280031024_MoveCounts.Designer.cs">
       <DependentUpon>201611280031024_MoveCounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612020521053_pooljoincode.cs" />
+    <Compile Include="Migrations\201612020521053_pooljoincode.Designer.cs">
+      <DependentUpon>201612020521053_pooljoincode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612020648016_MovePlayerPoolProperties.cs" />
+    <Compile Include="Migrations\201612020648016_MovePlayerPoolProperties.Designer.cs">
+      <DependentUpon>201612020648016_MovePlayerPoolProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerPool.cs" />
@@ -100,6 +108,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611280031024_MoveCounts.resx">
       <DependentUpon>201611280031024_MoveCounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612020521053_pooljoincode.resx">
+      <DependentUpon>201612020521053_pooljoincode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612020648016_MovePlayerPoolProperties.resx">
+      <DependentUpon>201612020648016_MovePlayerPoolProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

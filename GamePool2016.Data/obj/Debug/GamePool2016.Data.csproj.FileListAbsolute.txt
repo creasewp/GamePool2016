@@ -14,3 +14,5 @@ C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Mi
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.playerPool_Pool.resources
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.PlayerPoolGame_PointsEarned.resources
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.MoveCounts.resources
+C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.pooljoincode.resources
+C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.MovePlayerPoolProperties.resources

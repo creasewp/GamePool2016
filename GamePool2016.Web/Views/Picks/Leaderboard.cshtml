@@ -1,7 +1,65 @@
-﻿@{
+﻿@model GamePool2016.Models.LeaderboardViewModel
+
+@{
     ViewBag.Title = "Leaderboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+@using (Html.BeginForm())
+{
+    @Html.DropDownListFor(model => model.SelectedPoolId, Model.Pools, new { onchange = "this.form.submit();" })
+    <button value="Refresh" onclick="this.form.submit()">Refresh</button>
+
+    <table class="table">
+        <tr>
+            <th>
+                Rank
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Players.First().UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Players.First().PoolScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Players.First().LostPoints)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Players.First().PossiblePoints)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Players.First().WinPercent)
+            </th>
+
+        </tr>
+
+        @for (int i = 0; i < Model.Players.Count; i++)
+        {
+            <tr>
+                <td>
+                    @(i + 1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Players[i].UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Players[i].PoolScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Players[i].LostPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Players[i].PossiblePoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Players[i].WinPercent)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+}

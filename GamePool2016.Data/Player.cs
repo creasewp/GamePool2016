@@ -13,13 +13,6 @@ namespace GamePool2016.Data
         public string UserName { get; set; }
 
         public string PasswordHash { get; set; }
-        public bool IsLocked { get; set; }
-
-        public bool IsEligible { get; set; }
-        public int PoolScore { get; set; }
-        public int LostPoints { get; set; }
-        public int PossiblePoints { get; set; }
-        public double WinPercent { get; set; }
 
         public virtual ICollection<PlayerPool> Pools { get; set; }
     }

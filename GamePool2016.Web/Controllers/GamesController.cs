@@ -152,41 +152,44 @@ namespace GamePool2016.Controllers
             }
             foreach (PlayerPool playerPool in db.PlayerPools.Include("Games.PoolGame.Game"))
             {
-                int score = 0;
-                int lostPoints = 0;
-                int possiblePoints = 0;
-                int gamesCorrect = 0;
-                int gamesIncorrect = 0;
-
-                foreach (PlayerPoolGame playerPoolGame in playerPool.Games)
+                if (playerPool.IsValid)
                 {
-                    if (playerPoolGame.PoolGame.Game.IsGameFinished)
+                    int score = 0;
+                    int lostPoints = 0;
+                    int possiblePoints = 0;
+                    int gamesCorrect = 0;
+                    int gamesIncorrect = 0;
+
+                    foreach (PlayerPoolGame playerPoolGame in playerPool.Games)
                     {
-                        string winningTeamId = (playerPoolGame.PoolGame.Game.HomeScore > playerPoolGame.PoolGame.Game.AwayScore) ? playerPoolGame.PoolGame.Game.HomeTeamId : playerPoolGame.PoolGame.Game.AwayTeamId;
-                        if (playerPoolGame.WinnerTeamId == winningTeamId)
+                        if (playerPoolGame.PoolGame.Game.IsGameFinished)
                         {
-                            score += playerPoolGame.Confidence;
-                            playerPoolGame.PointsEarned = playerPoolGame.Confidence;
-                            gamesCorrect++;
+                            string winningTeamId = (playerPoolGame.PoolGame.Game.HomeScore > playerPoolGame.PoolGame.Game.AwayScore) ? playerPoolGame.PoolGame.Game.HomeTeamId : playerPoolGame.PoolGame.Game.AwayTeamId;
+                            if (playerPoolGame.WinnerTeamId == winningTeamId)
+                            {
+                                score += playerPoolGame.Confidence;
+                                playerPoolGame.PointsEarned = playerPoolGame.Confidence;
+                                gamesCorrect++;
+                            }
+                            else
+                            {
+                                lostPoints += playerPoolGame.Confidence;
+                                gamesIncorrect++;
+                            }
                         }
                         else
                         {
-                            lostPoints += playerPoolGame.Confidence;
-                            gamesIncorrect++;
+                            possiblePoints += playerPoolGame.Confidence;
                         }
                     }
+                    playerPool.PoolScore = score;
+                    playerPool.LostPoints = lostPoints;
+                    playerPool.PossiblePoints = possiblePoints;
+                    if (gamesCorrect + gamesIncorrect > 0)
+                        playerPool.WinPercent = (100 * Math.Round((double)((double)gamesCorrect / (double)(gamesCorrect + gamesIncorrect)), 3));
                     else
-                    {
-                        possiblePoints += playerPoolGame.Confidence;
-                    }
+                        playerPool.WinPercent = 0;
                 }
-                playerPool.PoolScore = score;
-                playerPool.LostPoints = lostPoints;
-                playerPool.PossiblePoints = possiblePoints;
-                if (gamesCorrect + gamesIncorrect > 0)
-                    playerPool.WinPercent = (100 * Math.Round((double)((double)gamesCorrect / (double)(gamesCorrect + gamesIncorrect)), 3));
-                else
-                    playerPool.WinPercent = 0;
             }
             db.SaveChanges();
         }

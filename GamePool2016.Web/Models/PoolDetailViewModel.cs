@@ -16,6 +16,7 @@ namespace GamePool2016.Models
     }
     public class PoolDetailViewModel
     {
+        [Display(Name = "Pool Name")]
         public string Description { get; set; }
         public List<PlayerPoolViewModel> Players { get; set; }
     }

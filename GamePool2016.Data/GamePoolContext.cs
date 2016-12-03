@@ -12,7 +12,7 @@ namespace GamePool2016.Data
     {
         public  GamePoolContext() : base("name=MS_TableConnectionString") 
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<GamePoolContext, MyNamespace.Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<GamePoolContext, GamePool2016.Data.Migrations.Configuration>());
         }
 
         public DbSet<Pool> Pools { get; set; }

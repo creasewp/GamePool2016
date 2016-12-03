@@ -18,7 +18,7 @@ namespace GamePool2016.Controllers
         // GET: Games
         public ActionResult Index()
         {
-            var games = db.Games.Include(g => g.AwayTeam).Include(g => g.HomeTeam);
+            var games = db.Games.Include(g => g.AwayTeam).Include(g => g.HomeTeam).OrderBy(item => item.GameDateTime);
             return View(games.ToList());
         }
 
@@ -166,6 +166,7 @@ namespace GamePool2016.Controllers
                         if (playerPoolGame.WinnerTeamId == winningTeamId)
                         {
                             score += playerPoolGame.Confidence;
+                            playerPoolGame.PointsEarned = playerPoolGame.Confidence;
                             gamesCorrect++;
                         }
                         else
@@ -182,7 +183,10 @@ namespace GamePool2016.Controllers
                 playerPool.PoolScore = score;
                 playerPool.LostPoints = lostPoints;
                 playerPool.PossiblePoints = possiblePoints;
-                playerPool.WinPercent = 100 * Math.Round((double)((double)gamesCorrect / (double)(gamesCorrect + gamesIncorrect)), 3);
+                if (gamesCorrect + gamesIncorrect > 0)
+                    playerPool.WinPercent = (100 * Math.Round((double)((double)gamesCorrect / (double)(gamesCorrect + gamesIncorrect)), 3));
+                else
+                    playerPool.WinPercent = 0;
             }
             db.SaveChanges();
         }

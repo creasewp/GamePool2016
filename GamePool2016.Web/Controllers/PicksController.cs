@@ -23,8 +23,7 @@ namespace GamePool2016.Controllers
         {
             //ViewBag.Message = "My Picks";
             var viewModel = new MyPicksViewModel();
-            RefreshViewModel(viewModel);
-            return View(viewModel);
+            return RefreshViewModel(viewModel);
         }
 
         [HttpPost]
@@ -45,16 +44,20 @@ namespace GamePool2016.Controllers
 
             //refresh what is sent to the browser
             ModelState.Clear();
-            RefreshViewModel(viewModel);
-            return View(viewModel);
+            
+            return RefreshViewModel(viewModel);
         }
 
-        private void RefreshViewModel(MyPicksViewModel viewModel)
+        private ActionResult RefreshViewModel(MyPicksViewModel viewModel)
         {
             viewModel.Player = db.Players
                 .Include("Pools.Games.PoolGame.Game.HomeTeam")
                 .Include("Pools.Games.PoolGame.Game.AwayTeam")
                 .Single(item => item.UserName == User.Identity.Name);
+            //go join or create a pool
+            if (viewModel.Player.Pools.Count() == 0)
+                return RedirectToAction("Index", "Pools");
+
             foreach (var pool in viewModel.Player.Pools)
             {
                 pool.Games = pool.Games.OrderBy(item => item.PoolGame.Game.GameDateTime).ToList();
@@ -62,14 +65,17 @@ namespace GamePool2016.Controllers
             viewModel.Pools = GetPlayerPools(viewModel.Player);
 
             if (viewModel.SelectedPoolId == null)
-                viewModel.SelectedPoolId = viewModel.Player.Pools.First().Id;
-            viewModel.PlayersInPool = db.Players.Count(item => item.Pools.Any(p => p.Id == viewModel.SelectedPoolId));
+                viewModel.SelectedPoolId = viewModel.Player.Pools.FirstOrDefault()?.Id;
+            //get pool id from player pool id
+            var selectedPoolId = db.PlayerPools.Single(item => item.Id == viewModel.SelectedPoolId).PoolId;
+            viewModel.PlayersInPool = db.Players.Count(item => item.Pools.Any(p => p.PoolId == selectedPoolId));
 
             viewModel.Games = viewModel.Player.Pools.Single(item => item.Id == viewModel.SelectedPoolId).Games.Where(item => item.PoolGame.IsSelected).ToList();
 
             viewModel.IsLocked = bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
 
             viewModel.IsValid = IsValid(viewModel);
+            return View(viewModel);
         }
 
         private bool IsValid(MyPicksViewModel viewModel)
@@ -166,13 +172,14 @@ namespace GamePool2016.Controllers
                     PoolScore = playerPool.PoolScore,
                     LostPoints = playerPool.LostPoints,
                     PossiblePoints = playerPool.PossiblePoints,
-                    WinPercent = playerPool.WinPercent
+                    WinPercent = playerPool.WinPercent,
+                    IsValid = playerPool.IsValid
                 };
 
                 tmpList.Add(vm);
             }
             viewModel.Players = new List<LeaderboardPlayerViewModel>();
-            viewModel.Players.AddRange(tmpList.OrderBy(item => item.PoolScore));
+            viewModel.Players.AddRange(tmpList.OrderByDescending(item => item.PoolScore));
         }
 
         [HttpPost]

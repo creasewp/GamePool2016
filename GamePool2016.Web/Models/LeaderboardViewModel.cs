@@ -27,5 +27,7 @@ namespace GamePool2016.Models
         public int PossiblePoints { get; set; }
         [Display(Name = "Win %")]
         public double WinPercent { get; set; }
+        [Display(Name = "")]
+        public bool IsValid { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GamePool2016.Data;
 using GamePool2016.Models;
+using System.Configuration;
 
 namespace GamePool2016.Controllers
 {
@@ -34,7 +35,7 @@ namespace GamePool2016.Controllers
         public ActionResult JoinPrivate([Bind(Include = "JoinCode")] Pool pool)
         {
             //look for a match
-            Pool match = db.Pools.SingleOrDefault(item => item.JoinCode == pool.JoinCode);
+            Pool match = db.Pools.Include("Game").SingleOrDefault(item => item.JoinCode == pool.JoinCode);
             if (match == null)
                 ModelState.AddModelError(string.Empty, "No pool with that code exists.");
             else
@@ -53,11 +54,14 @@ namespace GamePool2016.Controllers
             var playerPool = new PlayerPool() { Id = Guid.NewGuid().ToString(), PoolId = pool.Id, PlayerId = player.Id, IsValid = false };
             player.Pools.Add(playerPool);
             playerPool.Games = new List<PlayerPoolGame>();
-            foreach (PoolGame pgame in pool.Games)
+
+            int confidence = 1;
+            foreach (PoolGame pgame in pool.Games.OrderBy(item => item.Game.GameDateTime))
             {
                 if (create)
                     db.PoolGames.Add(pgame);
-                playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = 0, WinnerTeamId = string.Empty });
+                playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = confidence, WinnerTeamId = string.Empty });
+                confidence++;
             }
             //add this pool to the current player
             db.SaveChanges();
@@ -91,14 +95,20 @@ namespace GamePool2016.Controllers
         // GET: Pools/Create
         public ActionResult Create()
         {
+            bool isLocked = bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
             var model = new Pool();
-            model.Id = Guid.NewGuid().ToString();
             model.Games = new List<PoolGame>();
-            using (GamePool2016.Data.GamePoolContext context = new Data.GamePoolContext())
+            if (isLocked)
+                ModelState.AddModelError("", "Cannot create new pool. Games have started.");
+            else
             {
-                foreach (Game game in context.Games)
+                model.Id = Guid.NewGuid().ToString();
+                using (GamePool2016.Data.GamePoolContext context = new Data.GamePoolContext())
                 {
-                    model.Games.Add(new PoolGame() { Id = Guid.NewGuid().ToString(), GameId = game.Id, Game = game, PoolId = model.Id, Pool = model, IsSelected = true});
+                    foreach (Game game in context.Games.OrderBy(item => item.GameDateTime))
+                    {
+                        model.Games.Add(new PoolGame() { Id = Guid.NewGuid().ToString(), GameId = game.Id, Game = game, PoolId = model.Id, Pool = model, IsSelected = true });
+                    }
                 }
             }
 

@@ -206,6 +206,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\GreenCheck.png" />
     <Content Include="Images\ic_thumb_up.png" />
     <Content Include="Images\thumbs-up-icon-blue-hi.png" />
     <Content Include="Scripts\bootstrap.js" />

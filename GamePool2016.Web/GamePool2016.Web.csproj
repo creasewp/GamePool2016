@@ -194,6 +194,7 @@
     <Compile Include="Models\LeaderboardViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyPicksViewModel.cs" />
+    <Compile Include="Models\PoolDetailViewModel.cs" />
     <Compile Include="Models\PoolsViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -206,6 +207,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\ic_thumb_up.png" />
+    <Content Include="Images\thumbs-up-icon-blue-hi.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

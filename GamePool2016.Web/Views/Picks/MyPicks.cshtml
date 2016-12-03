@@ -21,6 +21,14 @@
     {
         <button value="Save" onclick="this.form.submit()">Save Changes</button>
     }
+    if (Model.IsValid)
+    {
+        <div>
+            <img src="~/Images/thumbs-up-icon-blue-hi.png" width="60px"/>
+            Pool is valid!
+        </div>
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Player.Id);
 
     for (int i = 0; i < Model.Games.Count; i++)

@@ -40,10 +40,11 @@ namespace GamePool2016.Controllers
                 var dbGame = db.PlayerPoolGames.Single(item => item.Id == game.Id);
                 dbGame.Confidence = game.Confidence;
                 dbGame.WinnerTeamId = game.WinnerTeamId;
+                db.SaveChanges();
             }
-            db.SaveChanges();
 
             //refresh what is sent to the browser
+            ModelState.Clear();
             RefreshViewModel(viewModel);
             return View(viewModel);
         }
@@ -67,6 +68,30 @@ namespace GamePool2016.Controllers
             viewModel.Games = viewModel.Player.Pools.Single(item => item.Id == viewModel.SelectedPoolId).Games.Where(item => item.PoolGame.IsSelected).ToList();
 
             viewModel.IsLocked = bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
+
+            viewModel.IsValid = IsValid(viewModel);
+        }
+
+        private bool IsValid(MyPicksViewModel viewModel)
+        {
+            //is valid?
+            //are there any duplicate confidence scores?
+            //are there any confidence scores of zero?
+            int dupConfidence = viewModel.Games.GroupBy(item => item.Confidence).Select(g => new { Value = g.Key, Count = g.Count() }).Count(item => item.Count > 1);
+            int zeroConfidence = viewModel.Games.Count(item => item.Confidence < 1);
+            int greaterConfidence = viewModel.Games.Count(item => item.Confidence > viewModel.Games.Count());
+            int gamesWithoutWinners = viewModel.Games.Count(item => item.WinnerTeamId == null || item.WinnerTeamId == "");
+            if (dupConfidence > 0) ModelState.AddModelError("", $"There are {dupConfidence} duplicate confidence scores");
+            if (zeroConfidence > 0) ModelState.AddModelError("", $"{zeroConfidence} games have a confidence score of zero or lower");
+            if (greaterConfidence > 0) ModelState.AddModelError("", $"{greaterConfidence} games have a confidence score that is greater than {viewModel.Games.Count()}");
+            if (gamesWithoutWinners > 0) ModelState.AddModelError("", $"You have {gamesWithoutWinners} games left to pick the winner");
+
+            bool result = (dupConfidence == 0) && (zeroConfidence == 0) && (greaterConfidence == 0) && (gamesWithoutWinners == 0);
+
+            db.PlayerPools.Single(item => item.Id == viewModel.SelectedPoolId).IsValid = result;
+            db.SaveChanges();
+
+            return result;
         }
 
         private List<SelectListItem> GetPlayerPools(Player player)

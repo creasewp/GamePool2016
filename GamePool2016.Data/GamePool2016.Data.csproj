@@ -79,6 +79,14 @@
     <Compile Include="Migrations\201612020648016_MovePlayerPoolProperties.Designer.cs">
       <DependentUpon>201612020648016_MovePlayerPoolProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612030613162_PlayerPoolIsValid.cs" />
+    <Compile Include="Migrations\201612030613162_PlayerPoolIsValid.Designer.cs">
+      <DependentUpon>201612030613162_PlayerPoolIsValid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612030723456_addPlayersToPool.cs" />
+    <Compile Include="Migrations\201612030723456_addPlayersToPool.Designer.cs">
+      <DependentUpon>201612030723456_addPlayersToPool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerPool.cs" />
@@ -114,6 +122,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612020648016_MovePlayerPoolProperties.resx">
       <DependentUpon>201612020648016_MovePlayerPoolProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612030613162_PlayerPoolIsValid.resx">
+      <DependentUpon>201612030613162_PlayerPoolIsValid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612030723456_addPlayersToPool.resx">
+      <DependentUpon>201612030723456_addPlayersToPool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

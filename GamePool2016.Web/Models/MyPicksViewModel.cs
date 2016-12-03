@@ -15,5 +15,6 @@ namespace GamePool2016.Models
         public string SelectedPoolId { get; set; }
         public bool IsLocked { get; set; }
         public int PlayersInPool { get; set; }
+        public bool IsValid { get; set; }
     }
 }

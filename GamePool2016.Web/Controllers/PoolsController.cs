@@ -50,7 +50,7 @@ namespace GamePool2016.Controllers
         private void AddPlayerPool(Pool pool, bool create)
         {
             Player player = db.Players.Single(item => item.UserName == User.Identity.Name);
-            var playerPool = new PlayerPool() { Id = Guid.NewGuid().ToString(), PoolId = pool.Id, PlayerId = player.Id };
+            var playerPool = new PlayerPool() { Id = Guid.NewGuid().ToString(), PoolId = pool.Id, PlayerId = player.Id, IsValid = false };
             player.Pools.Add(playerPool);
             playerPool.Games = new List<PlayerPoolGame>();
             foreach (PoolGame pgame in pool.Games)
@@ -75,7 +75,17 @@ namespace GamePool2016.Controllers
             {
                 return HttpNotFound();
             }
-            return View(pool);
+            PoolDetailViewModel viewModel = new Models.PoolDetailViewModel();
+            viewModel.Description = pool.Description;
+            viewModel.Players = new List<Models.PlayerPoolViewModel>();
+            foreach (Player player in db.Players.Include("Pools").Where(item => item.Pools.Any(p => p.PoolId == pool.Id)))
+            {
+                PlayerPoolViewModel vm = new PlayerPoolViewModel();
+                vm.PlayerName = player.UserName;
+                vm.IsValid = player.Pools.Single(item => item.PoolId == pool.Id).IsValid;
+                viewModel.Players.Add(vm);
+            }
+            return View(viewModel);
         }
 
         // GET: Pools/Create

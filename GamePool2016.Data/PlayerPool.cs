@@ -20,6 +20,7 @@ namespace GamePool2016.Data
         public int LostPoints { get; set; }
         public int PossiblePoints { get; set; }
         public double WinPercent { get; set; }
+        public bool IsValid { get; set; }
 
     }
 }

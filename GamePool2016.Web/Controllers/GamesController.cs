@@ -93,6 +93,7 @@ namespace GamePool2016.Controllers
             {
                 db.Entry(game).State = EntityState.Modified;
                 db.SaveChanges();
+                DoCalc();
                 return RedirectToAction("Index");
             }
             ViewBag.AwayTeamId = new SelectList(db.Teams, "Id", "Description", game.AwayTeamId);
@@ -133,6 +134,57 @@ namespace GamePool2016.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Calc()
+        {
+            DoCalc();
+
+            return RedirectToAction("Index");
+        }
+
+        private void DoCalc()
+        {
+            foreach (PoolGame poolGame in db.PoolGames.Include("Game").ToList())
+            {
+                poolGame.HomeSelectedCount = db.PlayerPoolGames.Count(item => item.WinnerTeamId == poolGame.Game.HomeTeamId);
+                poolGame.AwaySelectedCount = db.PlayerPoolGames.Count(item => item.WinnerTeamId == poolGame.Game.AwayTeamId);
+            }
+            foreach (PlayerPool playerPool in db.PlayerPools.Include("Games.PoolGame.Game"))
+            {
+                int score = 0;
+                int lostPoints = 0;
+                int possiblePoints = 0;
+                int gamesCorrect = 0;
+                int gamesIncorrect = 0;
+
+                foreach (PlayerPoolGame playerPoolGame in playerPool.Games)
+                {
+                    if (playerPoolGame.PoolGame.Game.IsGameFinished)
+                    {
+                        string winningTeamId = (playerPoolGame.PoolGame.Game.HomeScore > playerPoolGame.PoolGame.Game.AwayScore) ? playerPoolGame.PoolGame.Game.HomeTeamId : playerPoolGame.PoolGame.Game.AwayTeamId;
+                        if (playerPoolGame.WinnerTeamId == winningTeamId)
+                        {
+                            score += playerPoolGame.Confidence;
+                            gamesCorrect++;
+                        }
+                        else
+                        {
+                            lostPoints += playerPoolGame.Confidence;
+                            gamesIncorrect++;
+                        }
+                    }
+                    else
+                    {
+                        possiblePoints += playerPoolGame.Confidence;
+                    }
+                }
+                playerPool.PoolScore = score;
+                playerPool.LostPoints = lostPoints;
+                playerPool.PossiblePoints = possiblePoints;
+                playerPool.WinPercent = 100 * Math.Round((double)((double)gamesCorrect / (double)(gamesCorrect + gamesIncorrect)), 3);
+            }
+            db.SaveChanges();
         }
     }
 }

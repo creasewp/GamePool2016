@@ -16,6 +16,7 @@
 
 @using (Html.BeginForm())
 {
+    <div>My Pools:</div>
     @Html.DropDownListFor(model => model.SelectedPoolId, Model.Pools, new { onchange = "this.form.submit();" })
     if (!Model.IsLocked)
     {
@@ -91,6 +92,11 @@
                 </tr>
             </table>
         </div>
+        if (!Model.IsLocked)
+        {
+            <button value="Save" onclick="this.form.submit()">Save Changes</button>
+        }
+
         }
         else
         {
@@ -157,8 +163,9 @@
                                 <image src="/Images/ic_thumb_up.png"></image>
                             }
                         </td>
+                        <td></td>
                         <td>
-                            @GetGamePercent(Model.Games[i].PoolGame.HomeSelectedCount)
+                            @GetGamePercent(Model.Games[i].PoolGame.AwaySelectedCount)
                         </td>
                     </tr>
                 </table>

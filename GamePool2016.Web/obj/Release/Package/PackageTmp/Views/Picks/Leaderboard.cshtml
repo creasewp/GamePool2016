@@ -9,11 +9,15 @@
 
 @using (Html.BeginForm())
 {
+    <div>My Pools:</div>
     @Html.DropDownListFor(model => model.SelectedPoolId, Model.Pools, new { onchange = "this.form.submit();" })
     <button value="Refresh" onclick="this.form.submit()">Refresh</button>
 
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Players.First().IsValid)
+            </th>
             <th>
                 Rank
             </th>
@@ -38,6 +42,16 @@
         @for (int i = 0; i < Model.Players.Count; i++)
         {
             <tr>
+                <td>
+                    @if (Model.Players[i].IsValid)
+                    {
+                        <a style="color:green">VALID</a>
+                    }
+                    else
+                    {
+                        <a style="color:red">INVALID</a>
+                    }
+                </td>
                 <td>
                     @(i + 1)
                 </td>

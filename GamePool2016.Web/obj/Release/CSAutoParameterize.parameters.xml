@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-GamePool2016-20161008043157.mdf;Initial Catalog=aspnet-GamePool2016-20161008043157;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="F:\\src\\Personal\\GamePool2016\\GamePool2016\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="MS_TableConnectionString-Web.config Connection String" description="MS_TableConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-GamePool2016-20161008043157.mdf;Initial Catalog=aspnet-GamePool2016-20161008043157;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="F:\\src\\Personal\\GamePool2016\\GamePool2016\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MS_TableConnectionString']/@connectionString" />
+  </parameter>
+</parameters>

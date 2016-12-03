@@ -1,0 +1,54 @@
+﻿@model GamePool2016.Models.PoolDetailViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pool</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Players.First().PlayerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Players.First().IsValid)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Players)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

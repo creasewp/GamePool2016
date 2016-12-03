@@ -1,0 +1,99 @@
+﻿@model GamePool2016.Data.Game
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Game</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AwayTeam.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AwayTeam.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeTeam.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeTeam.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AwayScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AwayScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GameDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GameDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Network)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Network)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsGameFinished)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsGameFinished)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeSelectedCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeSelectedCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AwaySelectedCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AwaySelectedCount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

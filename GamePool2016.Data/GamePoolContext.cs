@@ -10,7 +10,7 @@ namespace GamePool2016.Data
 {
     public class GamePoolContext : DbContext
     {
-        public  GamePoolContext() : base("name=DefaultConnection") 
+        public  GamePoolContext() : base("name=MS_TableConnectionString") 
         {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<GamePoolContext, MyNamespace.Migrations.Configuration>());
         }

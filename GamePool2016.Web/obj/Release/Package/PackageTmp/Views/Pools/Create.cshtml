@@ -51,6 +51,7 @@
                     @Html.HiddenFor(model => model.Games[i].GameId)
                     @Html.EditorFor(model => model.Games[i].IsSelected)
                     @Html.ValueFor(model => model.Games[i].Game.Description)
+                    @Html.ValueFor(model => model.Games[i].Game.GameDateTime)
                     
                 </div>
             }

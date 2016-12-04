@@ -55,6 +55,15 @@ namespace GamePool2016.Controllers
             player.Pools.Add(playerPool);
             playerPool.Games = new List<PlayerPoolGame>();
 
+            //if the poolgame game is null, fill them
+            if (pool.Games.First().Game == null)
+            {
+                foreach (PoolGame game in pool.Games)
+                {
+                    game.Game = db.Games.Find(game.GameId);
+                }
+            }
+
             int confidence = 1;
             foreach (PoolGame pgame in pool.Games.OrderBy(item => item.Game.GameDateTime))
             {

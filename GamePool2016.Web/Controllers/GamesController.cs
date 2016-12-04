@@ -147,8 +147,8 @@ namespace GamePool2016.Controllers
         {
             foreach (PoolGame poolGame in db.PoolGames.Include("Game").ToList())
             {
-                poolGame.HomeSelectedCount = db.PlayerPoolGames.Count(item => item.WinnerTeamId == poolGame.Game.HomeTeamId);
-                poolGame.AwaySelectedCount = db.PlayerPoolGames.Count(item => item.WinnerTeamId == poolGame.Game.AwayTeamId);
+                poolGame.HomeSelectedCount = db.PlayerPoolGames.Count(item => item.PoolGameId == poolGame.Id && item.WinnerTeamId == poolGame.Game.HomeTeamId);
+                poolGame.AwaySelectedCount = db.PlayerPoolGames.Count(item => item.PoolGameId == poolGame.Id && item.WinnerTeamId == poolGame.Game.AwayTeamId);
             }
             foreach (PlayerPool playerPool in db.PlayerPools.Include("Games.PoolGame.Game"))
             {

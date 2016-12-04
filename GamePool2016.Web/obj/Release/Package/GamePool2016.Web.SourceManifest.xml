@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <IisApp path="F:\src\Personal\GamePool2016\GamePool2016.Web\obj\Release\Package\PackageTmp" />
-  <setAcl path="F:\src\Personal\GamePool2016\GamePool2016.Web\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="F:\src\Personal\GamePool2016\GamePool2016.Web\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+  <IisApp path="C:\src\PersonalGit\GamePool2016\GamePool2016.Web\obj\Release\Package\PackageTmp" />
+  <setAcl path="C:\src\PersonalGit\GamePool2016\GamePool2016.Web\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\src\PersonalGit\GamePool2016\GamePool2016.Web\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
 </sitemanifest>

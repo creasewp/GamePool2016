@@ -1,4 +1,5 @@
 ﻿using GamePool2016.Data;
+using GamePool2016.Helpers;
 using GamePool2016.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using System.Web.Mvc;
 
 namespace GamePool2016.Controllers
 {
+
+
     [Authorize]
     public class PicksController : Controller
     {
@@ -60,19 +63,29 @@ namespace GamePool2016.Controllers
 
             foreach (var pool in viewModel.Player.Pools)
             {
-                pool.Games = pool.Games.OrderBy(item => item.PoolGame.Game.GameDateTime).ToList();
+                pool.Games = pool.Games.OrderBy(item => item.PoolGame.Game.GameDateTime, new StringToDateTimeComparer()).ToList();
             }
             viewModel.Pools = GetPlayerPools(viewModel.Player);
 
+            //look for a cookie
             if (viewModel.SelectedPoolId == null)
-                viewModel.SelectedPoolId = viewModel.Player.Pools.FirstOrDefault()?.Id;
+            {
+                if (Request.Cookies["SelectedPoolId"] != null)
+                    viewModel.SelectedPoolId = Request.Cookies["SelectedPoolId"].Value;
+                else
+                    viewModel.SelectedPoolId = viewModel.Player.Pools.FirstOrDefault()?.Id;
+            }
+            //remember last pool
+            HttpCookie cookie = new HttpCookie("SelectedPoolId", viewModel.SelectedPoolId);
+            Response.Cookies.Add(cookie);
             //get pool id from player pool id
             var selectedPoolId = db.PlayerPools.Single(item => item.Id == viewModel.SelectedPoolId).PoolId;
             viewModel.PlayersInPool = db.Players.Count(item => item.Pools.Any(p => p.PoolId == selectedPoolId));
 
             viewModel.Games = viewModel.Player.Pools.Single(item => item.Id == viewModel.SelectedPoolId).Games.Where(item => item.PoolGame.IsSelected).ToList();
 
-            viewModel.IsLocked = bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
+            var closeDate = new DateTime(2016, 12, 17, 5, 0, 0, DateTimeKind.Utc);
+            viewModel.IsLocked = (DateTime.UtcNow > closeDate) ||  bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
 
             viewModel.IsValid = IsValid(viewModel);
             return View(viewModel);
@@ -155,17 +168,29 @@ namespace GamePool2016.Controllers
         private void RefreshLeaderBoardViewModel(LeaderboardViewModel viewModel)
         {
             var player = db.Players.Include("Pools").Single(item => item.UserName == User.Identity.Name);
-            viewModel.Pools = GetPoolsForPlayer(player);
+            viewModel.Pools = GetPlayerPools(player);
 
             if (viewModel.SelectedPoolId == null)
-                viewModel.SelectedPoolId = viewModel.Pools.First().Value;
+            {
+                if (Request.Cookies["SelectedPoolId"] != null)
+                    viewModel.SelectedPoolId = Request.Cookies["SelectedPoolId"].Value;
+                else
+                    viewModel.SelectedPoolId = player.Pools.FirstOrDefault()?.Id;
+                    //viewModel.SelectedPoolId = viewModel.Pools.First().Value;
+            }
+            //remember last pool
+            HttpCookie cookie = new HttpCookie("SelectedPoolId", viewModel.SelectedPoolId);
+            Response.Cookies.Add(cookie);
+
             var tmpList = new List<Models.LeaderboardPlayerViewModel>();
+            //get pool id from player pool id
+            var selectedPoolId = db.PlayerPools.Single(item => item.Id == viewModel.SelectedPoolId).PoolId;
             //get players in this pool
-            var poolPlayers = db.Players.Where(item => item.Pools.Any(p => p.PoolId == viewModel.SelectedPoolId)).ToList();
+            var poolPlayers = db.Players.Where(item => item.Pools.Any(p => p.PoolId == selectedPoolId)).ToList();
             //load the playerpool for each player
             foreach (var poolPlayer in poolPlayers)
             {
-                var playerPool = db.PlayerPools.Single(item => item.PoolId == viewModel.SelectedPoolId && item.PlayerId == poolPlayer.Id);
+                var playerPool = db.PlayerPools.Single(item => item.PoolId == selectedPoolId && item.PlayerId == poolPlayer.Id);
                 var vm = new LeaderboardPlayerViewModel()
                 {
                     UserName = poolPlayer.UserName,

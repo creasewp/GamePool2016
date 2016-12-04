@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using GamePool2016.Data;
 using GamePool2016.Models;
 using System.Configuration;
+using GamePool2016.Helpers;
 
 namespace GamePool2016.Controllers
 {
@@ -35,7 +36,7 @@ namespace GamePool2016.Controllers
         public ActionResult JoinPrivate([Bind(Include = "JoinCode")] Pool pool)
         {
             //look for a match
-            Pool match = db.Pools.Include("Game").SingleOrDefault(item => item.JoinCode == pool.JoinCode);
+            Pool match = db.Pools.Include("Games.Game").SingleOrDefault(item => item.JoinCode == pool.JoinCode);
             if (match == null)
                 ModelState.AddModelError(string.Empty, "No pool with that code exists.");
             else
@@ -65,7 +66,7 @@ namespace GamePool2016.Controllers
             }
 
             int confidence = 1;
-            foreach (PoolGame pgame in pool.Games.OrderBy(item => item.Game.GameDateTime))
+            foreach (PoolGame pgame in pool.Games.OrderBy(item => item.Game.GameDateTime,new StringToDateTimeComparer()))
             {
                 if (create)
                     db.PoolGames.Add(pgame);
@@ -133,12 +134,19 @@ namespace GamePool2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                pool.Id = Guid.NewGuid().ToString();
-                //create a join code
-                pool.JoinCode = GenerateJoinCode();
-                db.Pools.Add(pool);
-                AddPlayerPool(pool, true);
-                return RedirectToAction("Index");
+                //pool name unique?
+                var apool = db.Pools.SingleOrDefault(item => item.Description == pool.Description);
+                if (apool != null)
+                    ModelState.AddModelError(string.Empty, "A pool with that name already exists. Please enter a different name");
+                else
+                {
+                    pool.Id = Guid.NewGuid().ToString();
+                    //create a join code
+                    pool.JoinCode = GenerateJoinCode();
+                    db.Pools.Add(pool);
+                    AddPlayerPool(pool, true);
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(pool);

@@ -10,7 +10,7 @@ using GamePool2016.Data;
 
 namespace GamePool2016.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class TeamsController : Controller
     {
         private GamePoolContext db = new GamePoolContext();

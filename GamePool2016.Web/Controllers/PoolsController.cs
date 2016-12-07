@@ -115,7 +115,8 @@ namespace GamePool2016.Controllers
                 model.Id = Guid.NewGuid().ToString();
                 using (GamePool2016.Data.GamePoolContext context = new Data.GamePoolContext())
                 {
-                    foreach (Game game in context.Games.OrderBy(item => item.GameDateTime))
+                    var games = context.Games.ToList();
+                    foreach (Game game in games.OrderBy(item => item.GameDateTime, new StringToDateTimeComparer()))
                     {
                         model.Games.Add(new PoolGame() { Id = Guid.NewGuid().ToString(), GameId = game.Id, Game = game, PoolId = model.Id, Pool = model, IsSelected = true });
                     }

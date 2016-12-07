@@ -216,6 +216,7 @@
     <Content Include="Images\JoinPool.PNG" />
     <Content Include="Images\MyPicksProgress.PNG" />
     <Content Include="Images\PoolWIthCode.PNG" />
+    <Content Include="Images\PrintableWorksheet.PNG" />
     <Content Include="Images\SaveChanges.PNG" />
     <Content Include="Images\SelectTeam.png" />
     <Content Include="Images\TeamSelected.png" />
@@ -223,6 +224,7 @@
     <Content Include="Images\ValidationError.PNG" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="FunBowlChart.pdf" />
     <None Include="Properties\PublishProfiles\GamePool2016 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\GamePool2016 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -246,7 +248,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

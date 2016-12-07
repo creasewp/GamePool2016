@@ -5,93 +5,92 @@
 
 
 <p>
-    <h3><b>Select a winning team...</b></h3>
+    <h3>Create an account</h3>
     <ul>
-        First, browse to
-        <a href="\MyPicks.aspx">My Picks</a>.
-
-        Then click on the name of the team you predict will win that bowl game.
-        <br />
-        <asp:Image runat="server" ImageUrl="\Images\SelectTeam.png" Height="70" />
-        <br />
-        Your choice will be identified with a thumbs up icon.
-        <br />
-        <asp:Image runat="server" ImageUrl="\Images\TeamSelected.png" Height="70" />
+        <li>Click Register</li>
+        <li>Create a user, entering in your email and password</li>
+        <img src="~/Images/Createuser.png" />
     </ul>
 
+    <h3>Create or Join a pool</h3>
+    <ul>
+        <li>If you want to create a new pool, click 'Create new pool'</li>
+        <img src="~/Images/CreateJoinPool.png" />
+        <ul>
+            <li>To create a new pool, enter in a name for the pool</li>
+            <li>Then select which games will be part of your pool. By default all games are selected</li>
+            <li>Click the create button at the bottom of the page</li>
+            <img src="~/Images/CreatePool.png" />
+            <li>This will create a pool, and assign an invitation code that others can use to join your pool</li>
+            <img src="~/Images/PoolWithCode.png" />
+        </ul>
+        <li>You received an invitation code from a friend, click 'Join a private pool'</li>
+        <li>Enter the invitation code</li>
+        <img src="~/Images/JoinPool.png" />
+        <li>Once you have joined, the pool will be listed under 'Your Pools'</li>
+        It is possible to join multiple pools.
+    </ul>
+
+    <h3><b>Select a winning team...</b></h3>
+    <ul>
+        <li>
+            First, browse to
+            @Html.ActionLink("My Picks", "MyPicks", "Picks").
+        </li>
+        <li>If you are a member of multiple pools, use the drop down list to switch between them</li>
+
+        <li>
+            To assist with selecting your teams and assigning the ranking score, you can use the printable worksheet by clicking the link at the top of the page
+        </li>
+        <img src="~/Images/PrintableWorksheet.png" />
+        <li>Then click on the name of the team you predict will win that bowl game.</li>        
+        <li>Your choice will be identified with a thumbs up icon.</li>        
+        <img src="~/Images/TeamSelected.png" />
+    </ul>
 
     <h3><b>Change your Ranking Score...</b></h3>
     <ul id="list">
         <li>
-            The default mode is 'Worksheet Mode'. In this mode, you must enter your confidence score for each game in the appropriate textbox.</br>
-            <asp:Image runat="server" ImageUrl="\Images\WorksheetConfidence.png" Height="70" /></br>
-            After entering your confidence score for all the games, click <a href='#saveChanges'>here</a> to learn how to save your changes.
+            You must enter your confidence score for each game in the appropriate textbox.
         </li>
-        </br>
-        <strong>-- OR --</strong>
-        </br></br>
-        Unchecking the 'Worksheet Mode' checkbox enables movement of games as described below.</br>
-
-        There are two ways to change your Ranking Score for a bowl game.
-        <br />
-
+        <img src="~/Images/ConfidenceScore.png" />
         <li>
-            Click on the green Up or Down arrow to move a game up or down one at a time
-            <br />
-            For example, if the current bowl game has a Ranking Score of 38,<br />
-            <asp:Image runat="server" ImageUrl="\Images\RankScore38.png" Height="70" /> <br />
-            clicking the down arrow will change the ranking score to 37.<br />
-            <asp:Image runat="server" ImageUrl="\Images\RankScore37.png" Height="70" /> <br />
-            <asp:Image runat="server" ImageUrl="\Images\blank square.png" Height="30" />
-        </li>
-        <li>
-            If you want to move a game more than one at a time, click the Edit link<br />
-            <asp:Image runat="server" ImageUrl="\Images\EditRankScore.png" Height="70" /> <br />
-            This will provide a textbox where you can manually type in a new rank score. Click Update to update your list.<br />
-            <asp:Image runat="server" ImageUrl="\Images\EditTextboxRankScore.png" Height="70" /> <br />
-            <asp:Image runat="server" ImageUrl="\Images\blank square.png" Height="30" />
-        </li>
-        <li>
-            Once updated, your list should look something like this. </br>
-            <asp:Image runat="server" ImageUrl="\Images\MovedTo15.png" Height="210" /> <br />
-            Note that each game must have a unique Ranking Score. When you move a game using the Edit link,
-            the website will re-calculate the other games to make room for your change.
-            <br />
-            <asp:Image runat="server" ImageUrl="\Images\blank square.png" Height="30" />
+            After entering your confidence score for all the games, click 'Save Changes'.
         </li>
     </ul>
-    <div id="saveChanges">
-        </br>
-        </br>
-    </div>
     <h3><b>Save your changes</b></h3>
     <ul>
-        When ready, be sure to save your changes. Click the Save Changes button at the top of the
-        <a href="\MyPicks.aspx">My Picks</a> page.
-        <br />
-        <asp:Image runat="server" ImageUrl="\Images\SaveChanges.png" Height="180" />
-        <br />
+        <li>
+            When ready, be sure to save your changes. Click the Save Changes button at the top or bottom of the
+            @Html.ActionLink("My Picks", "MyPicks", "Picks") page.
+        </li>
+        
+        <img src="~/Images/SaveChanges.png" />
+        <li>If there are errors with your selections, you will see one or more messages at the top of the page.</li>
+        <img src="~/Images/ValidationError.png" />
     </ul>
 
     <h3><b>Track your progress</b></h3>
     <ul>
-        Once the games have started, you can see how you did on individual game by going back to the
-        <a href="\MyPicks.aspx">My Picks</a> page.
-        <br />
-        Here, you can see when each game is scheduled to be played.
-        <br />
-        When the game is over, you can see the final score and how many points you were awarded.
-        <br />
-        Below you can see that we picked the correct winner for the Gildan New Mexico Bowl and were awarded 2 points.
-        <br />
-        We did not pick the correct winner of the Royal Purple Las Vegas Bowl and were awarded 0 points.
-        <br />
-
-        <asp:Image runat="server" ImageUrl="\Images\BowlResults.png" />
-        <br />
-        <br />
-        You can also track your overall progress on the
-        <a href="/Leaderboard.aspx">Leaderboard</a>.
+        <li>
+            Once the games have started, you can see how you did on individual game by going back to the
+            @Html.ActionLink("My Picks", "MyPicks", "Picks") page.
+        </li>
+        
+        <li>Here, you can see when each game is scheduled to be played.</li>
+        
+        <li>When the game is over, you can see the final score and how many points you were awarded.</li>
+        
+        @*<li>Below you can see that we picked the correct winner for the Gildan New Mexico Bowl and were awarded 2 points.</li>
+        
+        <li>We did not pick the correct winner of the Royal Purple Las Vegas Bowl and were awarded 0 points.</li>*@
+        
+        <img src="~/Images/MyPicksProgress.png" />
+        <li>The percentages to the right indicate the percent of players in your pool that picked that team to be the winner</li>
+        <li>
+            You can also track your overall progress on the
+            @Html.ActionLink("Leaderboard", "Leaderboard", "Picks").
+        </li>
     </ul>
 
 </p>

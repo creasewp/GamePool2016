@@ -185,6 +185,7 @@ namespace GamePool2016.Controllers
                     else
                     {
                         Player newPlayer = new Player();
+                        newPlayer.Email = model.Email;
                         newPlayer.UserName = model.UserName;
                         newPlayer.PasswordHash = pwdhash;
                         newPlayer.IsSysadmin = false;

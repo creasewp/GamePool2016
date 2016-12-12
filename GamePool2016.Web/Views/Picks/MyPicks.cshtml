@@ -71,7 +71,7 @@
                            var homeimgId = '@homeImageId';
                            var awayimgId = '@awayImageId';
                            document.getElementById(homeimgId).src = '/Images/ic_thumb_up.png';
-                           document.getElementById(awayimgId).src = '';
+                           document.getElementById(awayimgId).src = '/Images/blanksquare.png';
                            document.getElementById(winnerTeamId).value = '@Model.Games[i].PoolGame.Game.HomeTeamId'" style="cursor: pointer;">
                                 @Model.Games[i].PoolGame.Game.HomeTeam.Description
                             </a>
@@ -95,7 +95,7 @@
                            var homeimgId = '@homeImageId';
                            var awayimgId = '@awayImageId';
                            document.getElementById(awayimgId).src = '/Images/ic_thumb_up.png';
-                           document.getElementById(homeimgId).src = '';
+                           document.getElementById(homeimgId).src = '/Images/blanksquare.png';
                            document.getElementById(winnerTeamId).value = '@Model.Games[i].PoolGame.Game.AwayTeamId'" style="cursor: pointer;">
                                 @Model.Games[i].PoolGame.Game.AwayTeam.Description
                             </a>

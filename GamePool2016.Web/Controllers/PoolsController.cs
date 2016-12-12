@@ -51,30 +51,38 @@ namespace GamePool2016.Controllers
 
         private void AddPlayerPool(Pool pool, bool create)
         {
-            Player player = db.Players.Single(item => item.UserName == User.Identity.Name);
+            Player player = db.Players.Include("Pools").Single(item => item.UserName == User.Identity.Name);
             var playerPool = new PlayerPool() { Id = Guid.NewGuid().ToString(), PoolId = pool.Id, PlayerId = player.Id, IsValid = false };
-            player.Pools.Add(playerPool);
-            playerPool.Games = new List<PlayerPoolGame>();
-
-            //if the poolgame game is null, fill them
-            if (pool.Games.First().Game == null)
+            //make sure this player isn't already in this pool
+            if (player.Pools.SingleOrDefault(item => item.PoolId == pool.Id) == null)
             {
-                foreach (PoolGame game in pool.Games)
+                player.Pools.Add(playerPool);
+                playerPool.Games = new List<PlayerPoolGame>();
+
+                //if the poolgame game is null, fill them
+                if (pool.Games.First().Game == null)
                 {
-                    game.Game = db.Games.Find(game.GameId);
+                    foreach (PoolGame game in pool.Games)
+                    {
+                        game.Game = db.Games.Find(game.GameId);
+                    }
                 }
-            }
 
-            int confidence = 1;
-            foreach (PoolGame pgame in pool.Games.OrderBy(item => item.Game.GameDateTime,new StringToDateTimeComparer()))
-            {
-                if (create)
-                    db.PoolGames.Add(pgame);
-                playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = confidence, WinnerTeamId = string.Empty });
-                confidence++;
+                int confidence = 1;
+                foreach (PoolGame pgame in pool.Games.OrderBy(item => item.Game.GameDateTime, new StringToDateTimeComparer()))
+                {
+                    if (create)
+                        db.PoolGames.Add(pgame);
+                    playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = confidence, WinnerTeamId = string.Empty });
+                    confidence++;
+                }
+                //add this pool to the current player
+                db.SaveChanges();
             }
-            //add this pool to the current player
-            db.SaveChanges();
+            else
+            {
+                ModelState.AddModelError("", "You are already joined to that pool. Cannot join pool.");
+            }
         }
 
         // GET: Pools/Details/5

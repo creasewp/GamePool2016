@@ -4,34 +4,45 @@
 <h2>@ViewBag.Title.</h2>
 
 <h3>Rules</h3>
-<p>
-    The game is a pool. The player with the most points wins. Points are determined by your ranking of each game and if you chose
-    the correct winner. Ranking values are based on your confidence level as to the outcome of the game.
-</p>
+
 <ol>
+    <li>
+        Print the worksheet found on the upper right hand side of the @Html.ActionLink("My Picks", "MyPicks", "Picks") page. This worksheet lists all 41 participating bowl games. 
+        The championship game is not included. 
+    </li>
     <li> Choose which team you expect to win each game. The score of the game is not involved, only whether they win or lose.</li>
     <li>
-        Decide which bowl game result you have the most confidence in. You will move this bowl game (including your choice of
-        winning team) to the top of your list. For example, if you are 100% certain that Podunk U. will win the Toilet Bowl,
-        select Podunk U. as the winner and move the Toilet Bowl to the top of your list. If you have no idea who will win
-        the NoName Bowl, place that game at the bottom of your list.
+        Decide which bowl game you have the most confidence in. For example, if you are 100% certain that Podunk U. will be the winner of the Toilet Bowl, 
+        assign 41 points to that bowl game. 
     </li>
     <li>
-        Continue to rank the bowl games from 41 to 1, 41 being most confident to 1 being least confident. This is your ranking score.
-        This is the number of points that will be awarded to you if you choose the winning team for that game.
+        Continue to rank the remaining bowl games from 40 down to 1, 1 being the bowl game you have the least confidence in your selected team winning. 
+        As the games progress you will be awarded your assigned points for each game <strong>your</strong> selected team wins. At the bottom of the worksheet you will 
+        find numbers from 1 to 41 where you can track your selections to help reduce any duplications.
     </li>
     <li>
-        You can change your selections anytime prior to the pools being closed 9:00 PM PST December 16th.
-        Be sure to save any changes you make.
-        
-        After this time, your selections will be
-        locked in and you will not be allowed to change them.
+        You are now ready to enter your selections. On the @Html.ActionLink("My Picks", "MyPicks", "Picks") page, select the winning team for each bowl game by clicking on the appropriate team and 
+        assign <strong>your</strong> points for that game by deleting the value found in each box and entering your value.
     </li>
     <li>
-        After each bowl game is played, if you selected the winning team, the website will award you the number of points
-        that corresponds with your ranking score. For example, suppose you selected Podunk U. to win the Toilet Bowl and you
-        moved the Toilet Bowl at the top of your list with a ranking score of 41. If Podunk U. wins the Toilet Bowl, then
-        you will receive 41 points. If the opposing team won, then you would receive zero points for that game.
+        Once you have properly completed entering all 41 games, a green circled checkmark will appear at the top of the page. 
+        Otherwise it will notify you that you have not properly selected all 41 games and corrections need to be made. Now you can SAVE your work. 
+        This is found at both the top and bottom of the page. <strong>BE SURE TO SAVE YOUR WORK</strong>.
     </li>
-    <li> After all bowl games are played, the player with the most points wins.</li>
+    <li>
+        Once completed and saved, you can change your selections any time prior to the pool being closed 9:00 PM PST December 16th. Be sure to save any changes you make. 
+        After this time, your selections will be locked in and you will not be allowed to change them. 
+    </li>
+    <li>
+        After each bowl game is played, if you have selected the winning team, the website will award you the number of points that corresponds with your ranking score. 
+        For example, suppose you selected Podunk U to win the Toilet Bowl and assigned 38 points to that game. If Podunk U is the winner, 
+        then you will receive 38 points for that game. If their opponent won, you will receive 0 points for that game. 
+    </li>
+    <li>
+        After all 41 games are played, the player with the most points wins.
+    </li>
+    <li>
+        You can track your progress on the @Html.ActionLink("Leaderboard", "Leaderboard", "Picks") page. You will not only see your total points achieved, but also how many points you have 
+        remaining and your winning percentage along with the points for all other participants
+    </li>
 </ol>

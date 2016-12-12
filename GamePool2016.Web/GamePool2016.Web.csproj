@@ -207,6 +207,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\blanksquare.png" />
     <Content Include="Images\ConfidenceScore.png" />
     <Content Include="Images\CreateJoinPool.PNG" />
     <Content Include="Images\CreatePool.PNG" />

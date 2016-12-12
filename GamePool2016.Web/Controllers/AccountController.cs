@@ -433,6 +433,12 @@ namespace GamePool2016.Controllers
                 HttpCookie myCookie = new HttpCookie(".ASPXAUTH");
                 myCookie.Expires = DateTime.Now.AddDays(-1d);
                 Response.Cookies.Add(myCookie);
+                myCookie = new HttpCookie("SelectedPoolId");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
+                myCookie = new HttpCookie("UserName");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
             }
             return RedirectToAction("Index", "Home");
         }

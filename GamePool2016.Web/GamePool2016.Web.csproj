@@ -195,6 +195,7 @@
     <Compile Include="Models\LeaderboardViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyPicksViewModel.cs" />
+    <Compile Include="Models\PlayerPoolGameViewModel.cs" />
     <Compile Include="Models\PoolDetailViewModel.cs" />
     <Compile Include="Models\PoolsViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

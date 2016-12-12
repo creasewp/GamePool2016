@@ -42,6 +42,8 @@ namespace GamePool2016.Controllers
                 var dbGame = db.PlayerPoolGames.Single(item => item.Id == game.Id);
                 dbGame.Confidence = game.Confidence;
                 dbGame.WinnerTeamId = game.WinnerTeamId;
+                //valid if in the right range, and only one with that confidence score
+                dbGame.IsValid = (game.Confidence >= 1 && game.Confidence <= viewModel.Games.Count() && (viewModel.Games.Count(item => item.Confidence == game.Confidence) == 1));
                 db.SaveChanges();
             }
 

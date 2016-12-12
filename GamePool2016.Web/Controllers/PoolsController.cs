@@ -73,7 +73,7 @@ namespace GamePool2016.Controllers
                 {
                     if (create)
                         db.PoolGames.Add(pgame);
-                    playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = confidence, WinnerTeamId = string.Empty });
+                    playerPool.Games.Add(new PlayerPoolGame() { PlayerPoolId = playerPool.Id, PoolGameId = pgame.Id, Id = Guid.NewGuid().ToString(), Confidence = confidence, WinnerTeamId = string.Empty, IsValid = true });
                     confidence++;
                 }
                 //add this pool to the current player

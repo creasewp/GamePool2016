@@ -17,6 +17,7 @@ namespace GamePool2016.Data
         public int PointsEarned { get; set; }
 
         public string WinnerTeamId { get; set; }
+        public bool IsValid { get; set; }//isvalidconfidence
         
     }
 }

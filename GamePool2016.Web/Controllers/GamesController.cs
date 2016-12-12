@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GamePool2016.Data;
+using GamePool2016.Helpers;
 
 namespace GamePool2016.Controllers
 {
@@ -18,8 +19,8 @@ namespace GamePool2016.Controllers
         // GET: Games
         public ActionResult Index()
         {
-            var games = db.Games.Include(g => g.AwayTeam).Include(g => g.HomeTeam).OrderBy(item => item.GameDateTime);
-            return View(games.ToList());
+            var games = db.Games.Include(g => g.AwayTeam).Include(g => g.HomeTeam).ToList().OrderBy(item => item.GameDateTime, new StringToDateTimeComparer());
+            return View(games);
         }
 
         // GET: Games/Details/5
@@ -150,6 +151,15 @@ namespace GamePool2016.Controllers
                 poolGame.HomeSelectedCount = db.PlayerPoolGames.Count(item => item.PoolGameId == poolGame.Id && item.WinnerTeamId == poolGame.Game.HomeTeamId);
                 poolGame.AwaySelectedCount = db.PlayerPoolGames.Count(item => item.PoolGameId == poolGame.Id && item.WinnerTeamId == poolGame.Game.AwayTeamId);
             }
+
+            //one time calc to figure out playerpoolgame.isvalid
+            //foreach (PlayerPool playerPool in db.PlayerPools.Include("Games.PoolGame.Game"))
+            //{
+            //    foreach (PlayerPoolGame playerPoolGame in playerPool.Games)
+            //    {
+            //        playerPoolGame.IsValid = (playerPoolGame.Confidence >= 1 && playerPoolGame.Confidence <= playerPool.Games.Count() && (playerPool.Games.Count(item => item.Confidence == playerPoolGame.Confidence) == 1));
+            //    }
+            //}
             foreach (PlayerPool playerPool in db.PlayerPools.Include("Games.PoolGame.Game"))
             {
                 if (playerPool.IsValid)

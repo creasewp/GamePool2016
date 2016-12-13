@@ -113,7 +113,9 @@ namespace GamePool2016.Controllers
         // GET: Pools/Create
         public ActionResult Create()
         {
-            bool isLocked = bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
+            var closeDate = new DateTime(2016, 12, 17, 5, 0, 0, DateTimeKind.Utc);
+            bool isLocked = (DateTime.UtcNow > closeDate) || bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
+
             var model = new Pool();
             model.Games = new List<PoolGame>();
             if (isLocked)
@@ -121,17 +123,23 @@ namespace GamePool2016.Controllers
             else
             {
                 model.Id = Guid.NewGuid().ToString();
-                using (GamePool2016.Data.GamePoolContext context = new Data.GamePoolContext())
-                {
-                    var games = context.Games.ToList();
-                    foreach (Game game in games.OrderBy(item => item.GameDateTime, new StringToDateTimeComparer()))
-                    {
-                        model.Games.Add(new PoolGame() { Id = Guid.NewGuid().ToString(), GameId = game.Id, Game = game, PoolId = model.Id, Pool = model, IsSelected = true });
-                    }
-                }
+                AddPoolGames(model);
             }
 
             return View(model);
+        }
+
+        private void AddPoolGames(Pool model)
+        {
+            model.Games.Clear();
+            using (GamePool2016.Data.GamePoolContext context = new Data.GamePoolContext())
+            {
+                var games = context.Games.ToList();
+                foreach (Game game in games.OrderBy(item => item.GameDateTime, new StringToDateTimeComparer()))
+                {
+                    model.Games.Add(new PoolGame() { Id = Guid.NewGuid().ToString(), GameId = game.Id, Game = game, PoolId = model.Id, Pool = model, IsSelected = true });
+                }
+            }
         }
 
         // POST: Pools/Create
@@ -143,20 +151,29 @@ namespace GamePool2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                //pool name unique?
-                var apool = db.Pools.SingleOrDefault(item => item.Description == pool.Description);
-                if (apool != null)
-                    ModelState.AddModelError(string.Empty, "A pool with that name already exists. Please enter a different name");
+                if (string.IsNullOrEmpty(pool.Description))
+                {
+                    ModelState.AddModelError("", "Please enter a pool description");
+                }
                 else
                 {
-                    pool.Id = Guid.NewGuid().ToString();
-                    //create a join code
-                    pool.JoinCode = GenerateJoinCode();
-                    db.Pools.Add(pool);
-                    AddPlayerPool(pool, true);
-                    return RedirectToAction("Index");
+                    //pool name unique?
+                    var apool = db.Pools.SingleOrDefault(item => item.Description == pool.Description);
+                    if (apool != null)
+                        ModelState.AddModelError(string.Empty, "A pool with that name already exists. Please enter a different name");
+                    else
+                    {
+                        pool.Id = Guid.NewGuid().ToString();
+                        //create a join code
+                        pool.JoinCode = GenerateJoinCode();
+                        db.Pools.Add(pool);
+                        AddPlayerPool(pool, true);
+                        return RedirectToAction("Index");
+                    }
                 }
             }
+            //if we made it here, add the games
+            AddPoolGames(pool);
 
             return View(pool);
         }

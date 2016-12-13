@@ -38,3 +38,4 @@ C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Release\GamePool2016.Data.
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Release\GamePool2016.Data.csproj.GenerateResource.Cache
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Release\GamePool2016.Data.dll
 C:\src\PersonalGit\GamePool2016\GamePool2016.Data\obj\Release\GamePool2016.Data.pdb
+F:\src\Personal\GamePool2016\GamePool2016.Data\obj\Release\GamePool2016.Data.Migrations.playerpoolgameisvalid.resources

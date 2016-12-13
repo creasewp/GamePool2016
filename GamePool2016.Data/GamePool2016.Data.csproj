@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201612121605330_playerpoolgameisvalid.Designer.cs">
       <DependentUpon>201612121605330_playerpoolgameisvalid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612130434035_playerdatecreated.cs" />
+    <Compile Include="Migrations\201612130434035_playerdatecreated.Designer.cs">
+      <DependentUpon>201612130434035_playerdatecreated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerPool.cs" />
@@ -135,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612121605330_playerpoolgameisvalid.resx">
       <DependentUpon>201612121605330_playerpoolgameisvalid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612130434035_playerdatecreated.resx">
+      <DependentUpon>201612130434035_playerdatecreated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

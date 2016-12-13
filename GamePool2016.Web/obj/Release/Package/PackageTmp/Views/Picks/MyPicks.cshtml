@@ -61,8 +61,12 @@
                 {
                     string homeImageId = "Games_" + i + "__HomeImage";
                     string awayImageId = "Games_" + i + "__AwayImage";
-                    <tr @(((i % 2) == 1) ? "bgcolor=lightblue" : "")>
-                        <td><b>@Html.ValueFor(model => Model.Games[i].PoolGame.Game.Description)</b>  (@Html.ValueFor(model => Model.Games[i].PoolGame.Game.GameDateTime))</td>
+                    <tr @(((i % 2) == 1) ? "bgcolor=lightblue" : "") >
+                        <td>
+                            <div style="@((string.IsNullOrEmpty(Model.Games[i].WinnerTeamId)) ? "border: 1px solid red" : "")">
+                                <b>@Html.ValueFor(model => Model.Games[i].PoolGame.Game.Description)</b>  (@Html.ValueFor(model => Model.Games[i].PoolGame.Game.GameDateTime))
+                            </div>
+                        </td>
                         <td>@Html.ValueFor(model => Model.Games[i].PoolGame.Game.Network)</td>
                     </tr>
                     <tr @(((i % 2) == 1) ? "bgcolor=lightblue" : "")>
@@ -87,9 +91,13 @@
                             }
 
                         </td>
-                        <td>@Html.TextBoxFor(model => Model.Games[i].Confidence, new { style = "width:45px" })</td>
+                        <td>
+                            <div style="@((!Model.Games[i].IsValid) ? "border: 1px solid red" : "")">
+                                @Html.TextBoxFor(model => Model.Games[i].Confidence, new { style = "width:45px" })
+                            </div>
+                        </td>
                     </tr>
-                    <tr @(((i % 2) == 1) ? "bgcolor=lightblue" : "")>
+                    <tr @(((i % 2) == 1) ? "bgcolor=lightblue" : "") >
                         <td>
                             <a onclick="var winnerTeamId = 'Games_' + @i + '__WinnerTeamId';
                            var homeimgId = '@homeImageId';

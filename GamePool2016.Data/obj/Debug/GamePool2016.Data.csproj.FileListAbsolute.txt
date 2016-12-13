@@ -39,3 +39,4 @@ F:\src\Personal\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.cspro
 F:\src\Personal\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.dll
 F:\src\Personal\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.pdb
 F:\src\Personal\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.playerpoolgameisvalid.resources
+F:\src\Personal\GamePool2016\GamePool2016.Data\obj\Debug\GamePool2016.Data.Migrations.playerdatecreated.resources

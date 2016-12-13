@@ -15,5 +15,6 @@ namespace GamePool2016.Data
         public string PasswordHash { get; set; }
 
         public virtual ICollection<PlayerPool> Pools { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

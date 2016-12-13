@@ -20,6 +20,8 @@ namespace GamePool2016.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private static object m_Lock = new object();
+
         public AccountController()
         {
         }
@@ -169,41 +171,49 @@ namespace GamePool2016.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            lock (m_Lock)
             {
-                //insert user into database
-                PasswordHasher hasher = new PasswordHasher();
-                string pwdhash = hasher.HashPassword(model.Password);
-                using (GamePool2016.Data.GamePoolContext context = new Data.GamePoolContext())
+                if (ModelState.IsValid)
                 {
-                    //does this player exist?
-                    if (context.Players.Any(item => item.UserName == model.UserName))
+                    //insert user into database
+                    PasswordHasher hasher = new PasswordHasher();
+                    string pwdhash = hasher.HashPassword(model.Password);
+                    using (GamePool2016.Data.GamePoolContext context = new Data.GamePoolContext())
                     {
-                        //TODO - user already exists
-                        ModelState.AddModelError("", "User already exists");
-                    }
-                    else
-                    {
-                        Player newPlayer = new Player();
-                        newPlayer.Email = model.Email;
-                        newPlayer.UserName = model.UserName;
-                        newPlayer.PasswordHash = pwdhash;
-                        newPlayer.IsSysadmin = false;
-                        newPlayer.Id = Guid.NewGuid().ToString();
+                        //does this player exist?
+                        var player = context.Players.SingleOrDefault(item => item.UserName == model.UserName);
+                        if (player != null)
+                        {
+                            //user already exists
+                            //but if the date created was within a second or two, then they probably double clicked
+                            if (player.DateCreated.AddSeconds(2) > DateTime.UtcNow)
+                                return RedirectToAction("MyPicks", "Picks");
+                            else
+                                ModelState.AddModelError("", "User already exists");
+                        }
+                        else
+                        {
+                            Player newPlayer = new Player();
+                            newPlayer.Email = model.Email;
+                            newPlayer.UserName = model.UserName;
+                            newPlayer.PasswordHash = pwdhash;
+                            newPlayer.IsSysadmin = false;
+                            newPlayer.Id = Guid.NewGuid().ToString();
+                            newPlayer.DateCreated = DateTime.UtcNow;
 
-                        context.Players.Add(newPlayer);
-                        context.SaveChanges();
+                            context.Players.Add(newPlayer);
+                            context.SaveChanges();
 
-                        HttpCookie cookie = new HttpCookie("UserName", model.UserName);
-                        Response.Cookies.Add(cookie);
-                        FormsAuthentication.SetAuthCookie(model.UserName, true);
+                            HttpCookie cookie = new HttpCookie("UserName", model.UserName);
+                            Response.Cookies.Add(cookie);
+                            FormsAuthentication.SetAuthCookie(model.UserName, true);
 
-                        return RedirectToAction("MyPicks", "Picks");
+                            return RedirectToAction("MyPicks", "Picks");
+                        }
                     }
                 }
+                return View(model);
             }
-            return View(model);
-
         }
 
         //

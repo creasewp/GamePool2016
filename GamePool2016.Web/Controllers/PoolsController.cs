@@ -113,7 +113,7 @@ namespace GamePool2016.Controllers
         // GET: Pools/Create
         public ActionResult Create()
         {
-            var closeDate = new DateTime(2016, 12, 17, 5, 0, 0, DateTimeKind.Utc);
+            var closeDate = new DateTime(2016, 12, 17, 8, 0, 0, DateTimeKind.Utc);
             bool isLocked = (DateTime.UtcNow > closeDate) || bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
 
             var model = new Pool();

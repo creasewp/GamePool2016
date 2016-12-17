@@ -86,7 +86,7 @@ namespace GamePool2016.Controllers
 
             viewModel.Games = viewModel.Player.Pools.Single(item => item.Id == viewModel.SelectedPoolId).Games.Where(item => item.PoolGame.IsSelected).ToList();
 
-            var closeDate = new DateTime(2016, 12, 17, 5, 0, 0, DateTimeKind.Utc);
+            var closeDate = new DateTime(2016, 12, 17, 8, 0, 0, DateTimeKind.Utc);
             viewModel.IsLocked = (DateTime.UtcNow > closeDate) ||  bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
 
             viewModel.IsValid = IsValid(viewModel);

@@ -27,6 +27,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Players.First().PlayerName)
         </th>
+    @*TODO - only show email to pool admin*@    
+    @*<th>
+            @Html.DisplayNameFor(model => model.Players.First().Email)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Players.First().IsValid)
         </th>
@@ -39,6 +43,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PlayerName)
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.IsValid)
             </td>

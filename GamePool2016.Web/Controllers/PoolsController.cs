@@ -104,6 +104,7 @@ namespace GamePool2016.Controllers
             {
                 PlayerPoolViewModel vm = new PlayerPoolViewModel();
                 vm.PlayerName = player.UserName;
+                vm.Email = player.Email;
                 vm.IsValid = player.Pools.Single(item => item.PoolId == pool.Id).IsValid;
                 viewModel.Players.Add(vm);
             }
@@ -113,7 +114,7 @@ namespace GamePool2016.Controllers
         // GET: Pools/Create
         public ActionResult Create()
         {
-            var closeDate = new DateTime(2016, 12, 17, 8, 0, 0, DateTimeKind.Utc);
+            var closeDate = new DateTime(2017, 12, 16, 16, 0, 0, DateTimeKind.Utc);
             bool isLocked = (DateTime.UtcNow > closeDate) || bool.Parse(ConfigurationManager.AppSettings["IsLocked"]);
 
             var model = new Pool();

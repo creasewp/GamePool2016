@@ -11,6 +11,7 @@ namespace GamePool2016.Models
     {
         [Display(Name = "Player Name")]
         public string PlayerName { get; set; }
+        public string Email { get; set; }
         [Display(Name = "Pool Selections Valid?")]
         public bool IsValid { get; set; }
     }

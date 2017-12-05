@@ -50,7 +50,9 @@
 
         @for (int i = 0; i < Model.Players.Count; i++)
         {
-            <tr @(((i % 2) == 1) ? "bgcolor=lightblue" : "")>
+            <tr 
+                @(((i % 2) == 1) ? "bgcolor=lightblue" : "") 
+                @((string.Compare(Model.Players[i].UserName, User.Identity.Name, true) == 0) ? "style=font-weight:bold" : "")>
                 <td>
                     @(i + 1)
                 </td>

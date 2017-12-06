@@ -227,6 +227,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="FunBowlChart.pdf" />
+    <Content Include="BowlMania2017.pdf" />
     <None Include="Properties\PublishProfiles\GamePool2016 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\GamePool2016 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\GamePool2017 - Web Deploy.pubxml" />

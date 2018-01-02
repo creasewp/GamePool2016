@@ -19,10 +19,10 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AwayTeam.Description)
+            Home Team @*@Html.DisplayNameFor(model => model.HomeTeam.Description)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HomeTeam.Description)
+            Away Team @*@Html.DisplayNameFor(model => model.AwayTeam.Description)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.HomeScore)
@@ -31,7 +31,7 @@
             @Html.DisplayNameFor(model => model.AwayScore)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GameDateTime)
+            Game Time @*@Html.DisplayNameFor(model => model.GameDateTime)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Network)
@@ -48,10 +48,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AwayTeam.Description)
+            @Html.DisplayFor(modelItem => item.HomeTeam.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HomeTeam.Description)
+            @Html.DisplayFor(modelItem => item.AwayTeam.Description)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HomeScore)

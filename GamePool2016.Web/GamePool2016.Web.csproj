@@ -227,10 +227,12 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="FunBowlChart.pdf" />
-    <Content Include="BowlMania2017.pdf" />
+    <Content Include="BowlMania2018.pdf" />
     <None Include="Properties\PublishProfiles\GamePool2016 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\GamePool2016 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\GamePool2017 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\GamePool2018 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\GamePool2019 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

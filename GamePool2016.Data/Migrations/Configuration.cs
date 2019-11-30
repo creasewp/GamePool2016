@@ -28,60 +28,57 @@ namespace GamePool2016.Data.Migrations
             //
             if (!context.Teams.Any())
             {
-                CreateTeamsAndGame(context, "AFR Celebration Bowl", "North Carolina A&T", "Grambling", "ABC", "12/16/2017 9:00:00 AM");
-                CreateTeamsAndGame(context, "R+L Carriers New Orleans Bowl", "Troy", "North Texas", "ESPN", "12/16/2017 10:00:00 AM");
-                CreateTeamsAndGame(context, "AutoNation Cure Bowl", "Western Kentucky", "Georgia State", "CBSSN", "12/16/2017 11:30:00 AM");
-                CreateTeamsAndGame(context, "Las Vegas Bowl", "Boise State (25)", "Oregon", "ABC", "12 /16/2017 12:30:00 PM");
-                CreateTeamsAndGame(context, "Gildan New Mexico Bowl", "Marshall", "Colorado State", "ESPN", "12/16/2017 1:30:00 PM");
-                CreateTeamsAndGame(context, "Raycom Media Camellia Bowl", "Middle Tennessee", "Arkansas State", "ESPN", "12/16/2017 5:00:00 PM");
+                CreateTeamsAndGame(context, "Makers Wanted Bahamas Bowl", "North Carolina AT&T", "Alcorn State", "ESPN", "12/20/2019 2:00:00 PM");
+                CreateTeamsAndGame(context, "Frisco Bowl", "North Carolina AT&T", "Alcorn State", "ABC", "12/20/2019 7:30:00 PM");
+                
+                CreateTeamsAndGame(context, "Celebration Bowl", "North Carolina AT&T", "Alcorn State", "ABC", "12/21/2019 12:00:00 PM");
+                CreateTeamsAndGame(context, "New Mexico Bowl", "North Texas", "Utah State", "ESPN", "12/21/2019 2:00:00 PM");
+                CreateTeamsAndGame(context, "Cheribundi Boca Raton Bowl", "Tulane", "Louisiana", "ABC", "12/21/2019 3:30:00 PM");
+                CreateTeamsAndGame(context, "Camellia Bowl", "Fresno State", "Arizona State", "ESPN", "12/21/2019 5:30:00 PM");
+                CreateTeamsAndGame(context, "Mitsubishi Motors Las Vegas Bowl", "Georgia Southern", "Eastern Michigan", "ABC", "12/21/2019 7:30:00 PM");
+                CreateTeamsAndGame(context, "R+L Carriers New Orleans Bowl", "Middle Tennessee", "Appalachian", "ESPN", "12/21/2019 9:00:00 PM");
 
-                CreateTeamsAndGame(context, "Boca Raton Bowl", "Akron", "Florida Atlantic", "ESPN", "12/19/2017 4:00:00 PM");
+                CreateTeamsAndGame(context, "Bad Boy Mowers Gasparilla Bowl", "UAB", "Northern Illinois", "ESPN", "12/23/2019 2:30:00 PM");
 
-                CreateTeamsAndGame(context, "DXL Frisco Bowl", "Louisiana Tech", "SMU", "ESPN", "12/20/2017 5:00:00 PM");
+                CreateTeamsAndGame(context, "SoFi Hawai'i Bowl", "San Diego State", "Ohio", "ESPN", "12/24/2019 8:00:00 PM");
 
-                CreateTeamsAndGame(context, "Gasparilla Bowl", "Temple", "Florida International", "ESPN", "12/21/2017 5:00:00 PM");
+                CreateTeamsAndGame(context, "Walk-On's Independence Bowl", "Marshall", "South Florida", "ESPN", "12/26/2019 4:00:00 PM");
+                CreateTeamsAndGame(context, "Quick Lane Bowl", "Marshall", "South Florida", "ESPN", "12/26/2019 8:00:00 PM");
 
-                CreateTeamsAndGame(context, "Bahamas Bowl", "UAB", "Ohio", "ESPN", "12/22/2017 9:30:00 AM");
-                CreateTeamsAndGame(context, "Famous Idaho Potato Bowl", "Central Michigan", "Wyoming", "ESPN", "12/22/2017 1:00:00 PM");                
+                CreateTeamsAndGame(context, "Military Bowl Presented by Northrop Grumman", "FIU", "Toledo", "ESPN", "12/27/2019 12:00:00 PM");
+                CreateTeamsAndGame(context, "New Era Pinstripe Bowl", "Western Michigan", "BYU", "ESPN", "12/27/2019 3:20:00 PM");
+                CreateTeamsAndGame(context, "Academy Sports + Outdoors Texas Bowl", "Western Michigan", "BYU", "ESPN", "12/27/2019 6:45:00 PM");
+                CreateTeamsAndGame(context, "San Diego County Credit Union Holiday Bowl", "Western Michigan", "BYU", "Fox Sports 1", "12/27/2019 8:00:00 PM");
+                CreateTeamsAndGame(context, "Cheez-It Bowl", "Western Michigan", "BYU", "ESPN", "12/27/2019 10:15:00 PM");
 
-                CreateTeamsAndGame(context, "Birmingham Bowl", "Texas Tech", "South Florida", "ESPN", "12/23/2017 9:00:00 AM");
-                CreateTeamsAndGame(context, "Armed Forces Bowl", "San Diego State", "Army", "ESPN", "12/23/2017 12:30:00 PM");
-                CreateTeamsAndGame(context, "Dollar General Bowl", "Appalachian State", "Toledo", "ESPN", "12/23/2017 4:00:00 PM");
+                CreateTeamsAndGame(context, "Camping World Bowl", "Memphis", "Wake Forest", "ABC", "12/28/2019 12:00:00 PM");
+                CreateTeamsAndGame(context, "Goodyear Cotton Bowl Classic", "Houston", "Army", "ESPN", "12/28/2019 12:00:00 PM");
+                CreateTeamsAndGame(context, "PlayStation Fiesta Bowl", "Buffalo", "Troy", "ESPN", "12/28/2019 4:00:00 PM");
+                CreateTeamsAndGame(context, "Chick-fil-A Peach Bowl", "Buffalo", "Troy", "ESPN", "12/28/2019 4:00:00 PM");
 
-                CreateTeamsAndGame(context, "Hawai'i Bowl", "Fresno State", "Houston", "ESPN", "12/24/2017 5:30:00 PM");
+                CreateTeamsAndGame(context, "SERVPRO First Responder Bowl", "Louisiana Tech", "Hawai'i", "ESPN", "12/30/2019 12:30:00 PM");
+                CreateTeamsAndGame(context, "Franklin American Mortgage Music City Bowl", "Louisiana Tech", "Hawai'i", "ESPN", "12/30/2019 4:00:00 PM");
+                CreateTeamsAndGame(context, "Redbox Bowl", "Louisiana Tech", "Hawai'i", "FOX", "12/30/2019 4:00:00 PM");
+                CreateTeamsAndGame(context, "Capital One Orange Bowl", "Louisiana Tech", "Hawai'i", "ESPN", "12/30/2019 8:00:00 PM");
 
-                CreateTeamsAndGame(context, "Zaxby's Heart of Dallas Bowl", "Utah", "West Virginia", "ESPN", "12/26/2017 10:30:00 AM");
-                CreateTeamsAndGame(context, "Quick Lane Bowl", "Duke", "Northern Illinois", "ESPN", "12/26/2017 2:15:00 PM");
-                CreateTeamsAndGame(context, "Cactus Bowl", "Kansas State", "UCLA", "ESPN", "12/26/2017 6:00:00 PM");
+                CreateTeamsAndGame(context, "Belk Bowl", "Boston College", "Boise State", "ESPN", "12/31/2019 12:00:00 PM");
+                CreateTeamsAndGame(context, "Tony the Tiger Sun Bowl", "Boston College", "Boise State", "CBS", "12/31/2019 2:00:00 PM");
+                CreateTeamsAndGame(context, "AutoZone Liberty Bowl", "Boston College", "Boise State", "ESPN", "12/31/2019 3:45:00 PM");
+                CreateTeamsAndGame(context, "Valero Alamo Bowl", "Boston College", "Boise State", "ESPN", "12/31/2019 7:30:00 PM");
 
-                CreateTeamsAndGame(context, "Independence Bowl", "Southern Miss", "Florida State", "ESPN", "12/27/2017 10:30:00 AM");
-                CreateTeamsAndGame(context, "New Era Pinstripe Bowl", "Iowa", "Boston College", "ESPN", "12/27/2017 2:15:00 PM");
-                CreateTeamsAndGame(context, "Foster Farms Bowl", "Arizona", "Purdue", "FOX", "12/27/2017 5:30:00 PM");
-                CreateTeamsAndGame(context, "Academy Sports + Outdoors Texas Bowl", "Texas", "Missouri", "ESPN", "12/27/2017 6:00:00 PM");
+                CreateTeamsAndGame(context, "Vrbo Citrus Bowl", "Temple", "Duke", "ABC", "1/1/2020 1:00:00 PM");
+                CreateTeamsAndGame(context, "Outback Bowl", "Temple", "Duke", "ESPN", "1/1/2020 1:00:00 PM");
+                CreateTeamsAndGame(context, "Rose Bowl", "Temple", "Duke", "ESPN", "1/1/2020 5:00:00 PM");
+                CreateTeamsAndGame(context, "Allstate Sugar Bowl", "Temple", "Duke", "ESPN", "1/1/2020 8:45:00 PM");
 
-                CreateTeamsAndGame(context, "Miltary Bowl", "Virginia", "Navy", "ESPN", "12/28/2017 10:30:00 AM");
-                CreateTeamsAndGame(context, "Camping World Bowl", "Virginia Tech (22)", "Oklahoma State (19)", "ESPN", "12/28/2017 2:15:00 PM");
-                CreateTeamsAndGame(context, "Valero Alamo Bowl", "Stanford (13)", "TCU (15)", "ESPN", "12/28/2017 6:00:00 PM");
-                CreateTeamsAndGame(context, "San Diego County CU Holiday Bowl", "Washington State (18)", "Michigan State (16)", "FOX", "12/28/2017 6:00:00 PM");
+                CreateTeamsAndGame(context, "TicketSmarter Birmingham Bowl", "Purdue", "Auburn", "ESPN", "1/2/2020 3:00:00 PM");
+                CreateTeamsAndGame(context, "TaxSlayer Gator Bowl", "Purdue", "Auburn", "ESPN", "1/2/2020 7:00:00 PM");
 
-                CreateTeamsAndGame(context, "Belk Bowl", "Wake Forest", "Texas A&M", "ESPN", "12/29/2017 10:00:00 AM");
-                CreateTeamsAndGame(context, "Hyundai Sun Bowl", "NC State (24)", "Arizona State", "CBS", "12/29/2017 12:00:00 PM");
-                CreateTeamsAndGame(context, "Franklin Amer. Mort. Music City Bowl", "Kentucky", "Northwestern (21)", "ESPN", "12/29/2017 1:30:00 PM");
-                CreateTeamsAndGame(context, "NOVA Home Loans Arizona Bowl", "Utah State", "New Mexico State", "CBSSN", "12/29/2017 2:30:00 PM");
-                CreateTeamsAndGame(context, "Goodyear Cotton Bowl Classic", "USC (8)", "Ohio State (5)", "ESPN", "12/29/2017 5:30:00 PM");
+                CreateTeamsAndGame(context, "Famous Idaho Potato Bowl", "Purdue", "Auburn", "ESPN", "1/3/2020 3:30:00 PM");
 
-                CreateTeamsAndGame(context, "TaxSlayer Bowl", "Lousville", "Mississippi State (23)", "ESPN", "12/30/2017 9:00:00 AM");
-                CreateTeamsAndGame(context, "AutoZone Liberty Bowl", "Iowa State", "Memphis (20)", "ABC", "12/30/2017 9:30:00 AM");
-                CreateTeamsAndGame(context, "PlayStation Fiesta Bowl", "Washington (11)", "Penn State (9)", "ESPN", "12/30/2017 1:00:00 PM");
-                CreateTeamsAndGame(context, "Capital One Orange Bowl", "Miami (10)", "Wisonsin (6)", "ESPN", "12/30/2017 5:00:00 PM");
+                CreateTeamsAndGame(context, "Lockheed Martin Armed Forces Bowl", "Florida (10)", "Michigan (7)", "ESPN", "1/4/2020 11:30:00 AM");
 
-                CreateTeamsAndGame(context, "Outback Bowl", "Michigan", "South Carolina", "ESPN2", "1/1/2018 9:00:00 AM");
-                CreateTeamsAndGame(context, "Chick-fil-A Peach Bowl", "UCF (12)", "Auburn (7)", "ESPN", "1/1/2018 9:30:00 AM");
-                CreateTeamsAndGame(context, "Citrus Bowl", "Notre Dame (14)", "LSU (17)", "ABC", "1/1/2018 10:00:00 AM");
-
-                CreateTeamsAndGame(context, "Rose Bowl", "Georgia (3)", "Oklahoma (2)", "ESPN", "1/1/2017 2:00:00 PM");
-                CreateTeamsAndGame(context, "Allstate Sugar Bowl", "Alabama (4)", "Clemson (1)", "ESPN", "1/1/2017 5:45:00 PM");
-
+                CreateTeamsAndGame(context, "Mobile Alabama Bowl", "South Carolina", "Virginia", "ESPN", "1/6/2020 7:30:00 PM");
 
                 //CreateTeamsAndGame(context, "", "ESPN", "12/19/2017 11:30:00 AM");
                 context.SaveChanges();
